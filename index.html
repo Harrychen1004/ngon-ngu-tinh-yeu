@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Ngôn Ngữ Tình Yêu by Harry Chen</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -122,81 +122,112 @@ html, body {
   text-align: center;
   padding: 40px 24px;
 }
+/* ── SPLASH redesign ── */
+#screen-splash {
+  background: radial-gradient(ellipse at 70% 10%, #6B3FA0 0%, #3D1A7A 35%, #1A0840 70%, #0D0420 100%);
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+.splash-bokeh {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+}
+.splash-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 430px;
+  padding: 56px 28px 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .splash-badge {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.22);
   border-radius: 50px;
-  padding: 7px 18px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: #fff;
-  margin-bottom: 28px;
-  backdrop-filter: blur(6px);
+  padding: 8px 20px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 32px;
+  backdrop-filter: blur(8px);
 }
 .splash-badge-dot {
-  width: 8px; height: 8px;
+  width: 9px; height: 9px;
   border-radius: 50%;
-  background: #6EE7A0;
-  box-shadow: 0 0 6px #6EE7A0;
+  background: #5EE89A;
+  box-shadow: 0 0 8px #5EE89A, 0 0 16px rgba(94,232,154,0.5);
   flex-shrink: 0;
 }
 .splash-title {
-  font-family: 'Caveat', cursive;
-  font-size: 58px;
-  line-height: 1.0;
-  font-weight: 700;
-  background: linear-gradient(135deg, #FFE066 0%, #FFB347 40%, #F4A7B9 70%, #E8637C 100%);
+  font-family: 'Nunito', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.05;
+  background: linear-gradient(160deg, #FFE566 0%, #FFAA3B 35%, #FF8C69 60%, #F4A7B9 85%, #E87FA0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
 }
 .splash-desc {
-  color: rgba(255,255,255,0.82);
-  font-size: 14.5px;
+  color: rgba(255,255,255,0.78);
+  font-size: 15px;
   line-height: 1.75;
-  margin-bottom: 8px;
-  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 400;
 }
-.splash-desc strong { color: #fff; }
+.splash-desc strong { color: #fff; font-weight: 600; }
+.splash-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+  margin: 16px auto 20px;
+}
 .splash-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   width: 100%;
-  margin: 22px 0 28px;
+  margin: 8px 0 32px;
 }
 .stat-box {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 14px;
-  padding: 12px 6px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  padding: 16px 6px 14px;
   text-align: center;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
 }
 .stat-num {
-  font-family: 'Caveat', cursive;
-  font-size: 30px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #FFE066, #FFB347);
+  font-family: 'Nunito', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFE566, #FFAA3B);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
   display: block;
+  margin-bottom: 5px;
 }
 .stat-label {
   font-size: 9px;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
-  margin-top: 4px;
+  color: rgba(255,255,255,0.55);
   display: block;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 /* ── Level selection ── */
@@ -657,25 +688,30 @@ html, body {
 </div>
 
 <!-- ══════════ SPLASH ══════════ -->
-<div class="screen active" id="screen-splash" style="background: radial-gradient(ellipse at 60% 20%, #5B2D8E 0%, #3A1560 40%, #1E0A3C 100%); overflow-y:auto; justify-content:flex-start;">
-  <div class="splash-inner" style="padding: 52px 28px 40px; width:100%; max-width:420px;">
+<div class="screen active" id="screen-splash">
+  <!-- Bokeh background blobs -->
+  <div class="splash-bokeh" style="width:260px;height:260px;background:rgba(147,78,200,0.35);top:-60px;right:-60px;"></div>
+  <div class="splash-bokeh" style="width:200px;height:200px;background:rgba(80,40,160,0.3);bottom:80px;left:-70px;"></div>
+  <div class="splash-bokeh" style="width:140px;height:140px;background:rgba(232,99,124,0.2);bottom:200px;right:-20px;"></div>
 
+  <div class="splash-content">
     <!-- Badge -->
     <div class="splash-badge">
       <span class="splash-badge-dot"></span>
       TRÒ CHƠI TƯƠNG TÁC
     </div>
 
-    <!-- Tiêu đề lớn -->
+    <!-- Tiêu đề -->
     <div class="splash-title">Ngôn Ngữ<br>Tình Yêu</div>
-    <div style="font-size:13px; color:rgba(255,255,255,0.5); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; margin-top:-10px;">by Harry Chen</div>
 
-    <!-- Mô tả ý nghĩa -->
-    <p class="splash-desc">Trong một thế giới bận rộn, chúng ta <strong>quên mất cách hỏi nhau những điều thật lòng</strong> nhất.</p>
-    <p class="splash-desc">Trò chơi này sẽ giúp hai người <strong>kết nối sâu hơn, hiểu nhau hơn và yêu nhau nhiều hơn</strong> — qua từng câu hỏi chạm đến trái tim.</p>
-    <p class="splash-desc" style="font-style:italic; opacity:0.65">✦ Không có câu trả lời đúng hay sai — chỉ có sự thật của anh và em ✦</p>
+    <!-- Mô tả ý nghĩa & mục đích -->
+    <p class="splash-desc">Trong thế giới bận rộn, chúng ta thường <strong>quên mất cách hỏi nhau những điều thật lòng</strong> nhất — những điều tạo nên sự kết nối sâu sắc.</p>
 
-    <!-- Thống kê -->
+    <p class="splash-desc">Trò chơi này giúp hai người <strong>lắng nghe nhau, hiểu nhau hơn và yêu nhau nhiều hơn</strong> qua từng câu hỏi chạm đến trái tim.</p>
+
+    <div class="splash-divider"></div>
+
+    <!-- Stats -->
     <div class="splash-stats">
       <div class="stat-box">
         <span class="stat-num">100</span>
@@ -687,7 +723,7 @@ html, body {
       </div>
       <div class="stat-box">
         <span class="stat-num">7</span>
-        <span class="stat-label">Câu/lượt</span>
+        <span class="stat-label">Câu / lượt</span>
       </div>
       <div class="stat-box">
         <span class="stat-num">50+</span>
@@ -695,9 +731,16 @@ html, body {
       </div>
     </div>
 
-    <!-- Nút -->
-    <button class="btn btn-primary" onclick="startMusic(); showScreen('screen-rules')" style="min-width:100%; background: linear-gradient(135deg,#E8637C,#C94B6B); font-size:16px; padding:16px;">📖 Xem luật chơi →</button>
-    <button class="btn btn-outline" onclick="startMusic(); showScreen('screen-intro')" style="min-width:100%; margin-top:12px; border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.75); font-size:14px;">✨ Ý nghĩa trò chơi</button>
+    <!-- CTA -->
+    <button class="btn btn-primary" onclick="startMusic(); showScreen('screen-rules')"
+      style="width:100%; background:linear-gradient(135deg,#E8637C,#B5395A); font-size:16px; padding:16px 24px; border-radius:16px; font-family:'Be Vietnam Pro',sans-serif; box-shadow:0 8px 32px rgba(232,99,124,0.45);">
+      📖 Xem luật chơi
+    </button>
+    <button class="btn btn-outline" onclick="startMusic(); showScreen('screen-intro')"
+      style="width:100%; margin-top:12px; border-color:rgba(255,255,255,0.25); color:rgba(255,255,255,0.7); font-size:14px; border-radius:16px; padding:13px 24px;">
+      ✨ Ý nghĩa trò chơi
+    </button>
+    <p style="margin-top:20px; font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:1px;">by Harry Chen</p>
   </div>
 </div>
 
