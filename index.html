@@ -4,18 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ngôn Ngữ Tình Yêu by Harry Chen</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 html, body {
   height: 100%;
   font-family: 'Be Vietnam Pro', sans-serif;
-  background: #FDE8E8;
+  background: #FFD4C0;
+  overflow: hidden;
 }
 
-/* ── Layout: mobile = fixed fullscreen, PC = centered card ── */
+/* ── Tất cả screens: fullscreen cố định ── */
 .screen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -23,38 +28,6 @@ html, body {
   overflow: hidden;
 }
 .screen.active { display: flex; }
-
-/* MOBILE */
-@media (max-width: 639px) {
-  .screen {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-/* PC / TABLET */
-@media (min-width: 640px) {
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #FFD6C0 0%, #FFC2D4 50%, #FFD6C0 100%);
-  }
-  .screen {
-    position: relative;
-    width: 480px;
-    min-height: 700px;
-    max-height: 90vh;
-    border-radius: 32px;
-    box-shadow: 0 32px 80px rgba(180,60,80,0.18);
-    overflow: hidden;
-  }
-  /* Màn splash PC chiếm full chiều cao */
-  #screen-splash { min-height: 800px; }
-}
 
 /* ── Swirl background ── */
 .swirl-bg {
@@ -140,37 +113,41 @@ html, body {
 }
 
 /* ══════════════════════════════════════
-   SPLASH — Hồng cam pastel
+   SPLASH — Hồng cam pastel, fullscreen
 ══════════════════════════════════════ */
 #screen-splash {
-  background: linear-gradient(160deg, #FFD4B8 0%, #FFBCCA 40%, #FFA89E 70%, #FFCBA4 100%);
-  justify-content: flex-start;
+  background: linear-gradient(145deg, #FFE0CC 0%, #FFD0D8 35%, #FFBFC8 65%, #FFCDB8 100%);
+  justify-content: center;
   overflow-y: auto;
-}
-
-@media (min-width: 640px) {
-  #screen-splash { overflow-y: auto; }
 }
 
 .splash-bokeh {
   position: absolute;
   border-radius: 50%;
-  filter: blur(55px);
+  filter: blur(70px);
   pointer-events: none;
   z-index: 0;
 }
+
+/* Nội dung splash: tối đa 640px, căn giữa trên PC */
 .splash-content {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 52px 32px 44px;
+  max-width: 640px;
+  padding: 56px 32px 52px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin: 0 auto;
 }
-@media (min-width: 640px) {
-  .splash-content { padding: 56px 44px 48px; }
+
+@media (min-width: 900px) {
+  .splash-content {
+    max-width: 780px;
+    padding: 64px 60px 60px;
+  }
 }
 
 /* Badge */
@@ -178,137 +155,136 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.45);
-  border: 1.5px solid rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.5);
+  border: 1.5px solid rgba(255,255,255,0.8);
   border-radius: 50px;
-  padding: 8px 20px;
+  padding: 9px 22px;
   font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 2.5px;
-  color: #C05060;
-  margin-bottom: 28px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 12px rgba(200,80,100,0.1);
+  color: #B04060;
+  margin-bottom: 30px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgba(200,80,100,0.1);
 }
 .splash-badge-dot {
   width: 8px; height: 8px;
   border-radius: 50%;
   background: #FF6B6B;
-  box-shadow: 0 0 6px #FF6B6B, 0 0 12px rgba(255,107,107,0.5);
+  box-shadow: 0 0 6px #FF6B6B, 0 0 14px rgba(255,107,107,0.5);
   flex-shrink: 0;
   animation: pulse-dot 2s ease infinite;
 }
 @keyframes pulse-dot {
   0%,100% { transform: scale(1); opacity:1; }
-  50%      { transform: scale(1.3); opacity:.8; }
+  50%      { transform: scale(1.35); opacity:.75; }
 }
 
-/* Tiêu đề */
+/* Tiêu đề — Lora serif mềm mại */
 .splash-title {
-  font-family: 'Nunito', 'Be Vietnam Pro', sans-serif;
-  font-size: clamp(44px, 11vw, 64px);
-  font-weight: 900;
-  line-height: 1.05;
-  color: #B03050;
-  margin-bottom: 22px;
-  letter-spacing: -0.5px;
-  text-shadow: 0 2px 16px rgba(180,50,80,0.12);
-}
-@media (min-width: 640px) {
-  .splash-title { font-size: 60px; }
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.1;
+  color: #A83050;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+  text-shadow: 0 2px 20px rgba(168,48,80,0.1);
 }
 
 /* Mô tả */
 .splash-desc {
-  color: #7A3040;
-  font-size: 15px;
-  line-height: 1.8;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #7A3545;
+  font-size: clamp(14px, 2vw, 17px);
+  line-height: 1.85;
   margin-bottom: 10px;
   font-weight: 400;
+  max-width: 520px;
 }
-.splash-desc strong { color: #B03050; font-weight: 700; }
-@media (min-width: 640px) {
-  .splash-desc { font-size: 16px; }
-}
+.splash-desc strong { color: #A83050; font-weight: 600; }
 
 .splash-divider {
   width: 80px; height: 2px;
-  background: linear-gradient(to right, transparent, rgba(180,60,80,0.3), transparent);
-  margin: 18px auto 22px;
+  background: linear-gradient(to right, transparent, rgba(168,48,80,0.28), transparent);
+  margin: 20px auto 24px;
 }
 
 /* Stats */
 .splash-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  margin: 0 0 28px;
+  margin: 0 0 32px;
 }
 .stat-box {
-  background: rgba(255,255,255,0.55);
-  border: 1.5px solid rgba(255,255,255,0.8);
-  border-radius: 18px;
-  padding: 16px 6px 12px;
+  background: rgba(255,255,255,0.6);
+  border: 1.5px solid rgba(255,255,255,0.85);
+  border-radius: 20px;
+  padding: 20px 8px 16px;
   text-align: center;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(200,80,100,0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(200,80,100,0.07);
 }
 .stat-num {
-  font-family: 'Nunito', sans-serif;
-  font-size: clamp(24px, 7vw, 34px);
-  font-weight: 900;
-  color: #E05070;
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 700;
+  color: #D04060;
   line-height: 1;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .stat-label {
-  font-size: 9px;
-  letter-spacing: 1px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: #A05065;
+  color: #9A5065;
   display: block;
   font-weight: 700;
-  font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 /* Nút splash */
 .splash-btn-main {
   width: 100%;
-  padding: 17px 24px;
+  max-width: 400px;
+  padding: 18px 28px;
   border-radius: 18px;
-  background: linear-gradient(135deg, #E8637C, #C94B6B);
+  background: linear-gradient(135deg, #E8637C, #C0415E);
   color: #fff;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 16px;
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 28px rgba(220,70,100,0.35);
+  box-shadow: 0 8px 30px rgba(210,65,90,0.38);
   transition: transform 0.15s, box-shadow 0.15s;
   letter-spacing: 0.3px;
 }
-.splash-btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(220,70,100,0.42); }
+.splash-btn-main:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(210,65,90,0.45); }
 .splash-btn-main:active { transform: scale(0.97); }
 
 .splash-btn-sec {
   width: 100%;
+  max-width: 400px;
   margin-top: 12px;
-  padding: 14px 24px;
+  padding: 15px 28px;
   border-radius: 18px;
-  background: rgba(255,255,255,0.45);
-  color: #C94B6B;
+  background: rgba(255,255,255,0.5);
+  color: #C0415E;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 15px;
   font-weight: 600;
-  border: 2px solid rgba(220,100,130,0.35);
+  border: 2px solid rgba(210,80,110,0.3);
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: transform 0.15s, background 0.15s;
 }
-.splash-btn-sec:hover { background: rgba(255,255,255,0.65); }
+.splash-btn-sec:hover { background: rgba(255,255,255,0.7); }
 .splash-btn-sec:active { transform: scale(0.97); }
 
 /* ── Level selection ── */
@@ -725,20 +701,50 @@ html, body {
   100% { transform: translateY(-180px) rotate(360deg); opacity: 0; }
 }
 
-/* ── Responsive adjustments ── */
-@media (min-width: 640px) {
-  .swirl-card { max-width: 400px; padding: 36px 36px; }
-  .swirl-card h2 { font-size: 44px; }
-  .swirl-card p { font-size: 15.5px; }
-  .level-header { padding: 48px 32px 22px; }
-  .level-header h2 { font-size: 38px; }
-  .level-list { padding: 0 24px 48px; }
-  .q-card { max-width: 420px; }
-  .card-highlight { font-size: 48px; }
-  .game-header { max-width: 480px; }
-  .progress-bar-wrap { max-width: 440px; }
-  .card-container { max-width: 480px; }
+/* ── Swirl card heading dùng Lora ── */
+.swirl-card h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+}
+
+/* ── Responsive PC (≥768px) ── */
+@media (min-width: 768px) {
+  .swirl-card { max-width: 500px; padding: 40px 44px; }
+  .swirl-card h2 { font-size: 46px; }
+  .swirl-card p { font-size: 16px; }
+  .level-header { padding: 52px 0 24px; }
+  .level-header h2 { font-size: 40px; font-family: 'Lora', Georgia, serif; font-style: italic; }
+  .level-list { max-width: 560px; width: 100%; padding: 0 0 52px; }
+  .level-btn { padding: 18px 24px; }
+  .level-name { font-size: 16px; }
+  .q-card { max-width: 460px; min-height: 520px; }
+  .card-highlight { font-size: 50px; }
+  .card-question-text, .card-suffix { font-size: 15px; }
+  .game-header { max-width: 560px; padding: 20px 28px 10px; }
+  .progress-bar-wrap { max-width: 520px; }
+  .card-container { max-width: 560px; }
   #screen-level { overflow-y: auto; }
+  #screen-game { overflow: hidden; }
+}
+
+/* ── Responsive PC lớn (≥1200px): splash 2 cột ── */
+@media (min-width: 1200px) {
+  .splash-content {
+    max-width: 960px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0 60px;
+    text-align: left;
+  }
+  .splash-badge { align-self: flex-start; }
+  .splash-title { font-size: 76px; width: 100%; }
+  .splash-left { flex: 1; min-width: 360px; }
+  .splash-right { flex: 1; min-width: 300px; }
+  .splash-btn-main, .splash-btn-sec { max-width: 100%; }
+  .splash-stats { gap: 14px; }
+  .stat-box { padding: 22px 10px 18px; }
 }
 
 /* ── Slide animation ── */
@@ -801,12 +807,15 @@ html, body {
     <!-- Tiêu đề -->
     <div class="splash-title">Ngôn Ngữ<br>Tình Yêu</div>
 
-    <!-- Ý nghĩa & mục đích -->
+    <!-- Ý nghĩa & mục đích — viết cảm xúc, kích thích click -->
     <p class="splash-desc">
-      Trong thế giới bận rộn, chúng ta thường <strong>quên mất cách hỏi nhau những điều thật lòng</strong> — những điều tạo nên kết nối sâu sắc nhất.
+      Có bao giờ anh và em ngồi bên nhau — nhưng lại <strong>không biết nói gì thật sự có nghĩa?</strong>
     </p>
     <p class="splash-desc">
-      Trò chơi này giúp hai người <strong>lắng nghe, hiểu nhau hơn và yêu nhau nhiều hơn</strong> qua từng câu hỏi chạm đến trái tim.
+      Trò chơi này được tạo ra để giúp hai người <strong>chạm đến những điều chưa bao giờ dám nói</strong> — những ký ức, nỗi sợ, ước mơ và tình yêu thật sự bên trong nhau.
+    </p>
+    <p class="splash-desc" style="font-style:italic; opacity:0.8;">
+      ✦ Không có câu trả lời đúng hay sai — chỉ có <strong>sự thật</strong> của anh và em ✦
     </p>
 
     <div class="splash-divider"></div>
@@ -823,7 +832,7 @@ html, body {
       </div>
       <div class="stat-box">
         <span class="stat-num">7</span>
-        <span class="stat-label">Câu/lượt</span>
+        <span class="stat-label">Câu / lượt</span>
       </div>
       <div class="stat-box">
         <span class="stat-num">50+</span>
@@ -831,11 +840,11 @@ html, body {
       </div>
     </div>
 
-    <!-- Nút -->
-    <button class="splash-btn-main" onclick="startMusic(); showScreen('screen-rules')">📖 Xem luật chơi</button>
-    <button class="splash-btn-sec"  onclick="startMusic(); showScreen('screen-intro')">✨ Ý nghĩa trò chơi</button>
+    <!-- Nút CTA -->
+    <button class="splash-btn-main" onclick="startMusic(); showScreen('screen-rules')">📖 Xem luật chơi — bắt đầu thôi!</button>
+    <button class="splash-btn-sec"  onclick="startMusic(); showScreen('screen-intro')">✨ Ý nghĩa trò chơi là gì?</button>
 
-    <p style="margin-top:22px; font-size:12px; color:rgba(160,50,70,0.5); letter-spacing:1.5px; text-transform:uppercase;">by Harry Chen</p>
+    <p style="margin-top:28px; font-size:11px; color:rgba(140,50,70,0.4); letter-spacing:2px; text-transform:uppercase; font-family:'Be Vietnam Pro',sans-serif;">Made with 💕 by Harry Chen</p>
   </div>
 </div>
 
@@ -1059,7 +1068,7 @@ const QUESTIONS = [
   { id:10, pre:"Nếu có một siêu năng lực,",              h:"ANH/EM MUỐN\nCÓ GÌ?",      suf:"",                                  level:1, theme:5, ill:2  },
 
   // ── LEVEL 2: Đang tìm hiểu ──────────────────────
-  { id:11, pre:"Điều gì làm anh/em nhớ mãi về",          h:"KỶ NIỆM\nHỒI CÒN NHỎ",    suf:"bên gia đình?",                     level:2, theme:1, ill:3  },
+  { id:11, pre:"Điều gì làm anh/em nhớ mãi về",          h:"KỶ NIỆM\nHỒI CÒN NHỎ",    suf:"bên gia đình?",                     level:2, theme:1, ill:3, orig:true  },
   { id:12, pre:"Điều gì tạo nên",                        h:"MỐI QUAN HỆ\nBỀN VỮNG",   suf:"theo anh/em?",                      level:2, theme:2, ill:10 },
   { id:13, pre:"Nỗi sợ lớn nhất của anh/em",             h:"TRONG CUỘC\nSỐNG",         suf:"là gì?",                            level:2, theme:3, ill:7  },
   { id:14, pre:"Khoảnh khắc nào trong cuộc đời",         h:"ANH/EM MUỐN\nSỐNG LẠI?",  suf:"",                                  level:2, theme:4, ill:2  },
@@ -1078,60 +1087,60 @@ const QUESTIONS = [
   // ── LEVEL 3: Yêu dưới 1 năm ──────────────────────
   { id:26, pre:"Lần đầu gặp nhau,",                     h:"ANH/EM NGHĨ\nGÌ VỀ NGƯỜI KIA?", suf:"",                             level:3, theme:1, ill:10 },
   { id:27, pre:"Điều gì ở đối phương khiến anh/em",     h:"QUYẾT ĐỊNH\nYÊU?",         suf:"",                                  level:3, theme:2, ill:1  },
-  { id:28, pre:"Điều anh/em muốn 2 đứa làm cùng nhau", h:"MÀ CHƯA\nTỪNG LÀM?",      suf:"",                                  level:3, theme:3, ill:5  },
-  { id:29, pre:"Nếu có 24 giờ chỉ 2 đứa,",             h:"ANH/EM LÊN\nKẾ HOẠCH GÌ?", suf:"",                                 level:3, theme:4, ill:7  },
-  { id:30, pre:"Anh/em nghĩ gì về",                     h:"BUỔI\nFIRST DATE",          suf:"của chúng mình?",                  level:3, theme:5, ill:2  },
+  { id:28, pre:"Điều anh/em muốn 2 đứa làm cùng nhau", h:"MÀ CHƯA\nTỪNG LÀM?",      suf:"",                                  level:3, theme:3, ill:5, orig:true  },
+  { id:29, pre:"Nếu có 24 giờ chỉ 2 đứa,",             h:"ANH/EM LÊN\nKẾ HOẠCH GÌ?", suf:"",                                 level:3, theme:4, ill:7, orig:true  },
+  { id:30, pre:"Anh/em nghĩ gì về",                     h:"BUỔI\nFIRST DATE",          suf:"của chúng mình?",                  level:3, theme:5, ill:2, orig:true  },
   { id:31, pre:"Điều gì anh/em thích nhất",             h:"Ở NGƯỜI\nBÊN CẠNH MÌNH?",  suf:"",                                  level:3, theme:1, ill:1  },
   { id:32, pre:"Khoảnh khắc nào anh/em cảm thấy",      h:"GẦN NHAU\nNHẤT?",          suf:"",                                  level:3, theme:2, ill:10 },
-  { id:33, pre:"Anh/em đã bao giờ phải",                h:"GIẢ VỜ VUI\nKHI BÊN NHAU?", suf:"",                                 level:3, theme:3, ill:3  },
-  { id:34, pre:"Điều gì rất muốn làm cho người kia",    h:"NHƯNG CHƯA\nTHỂ LÀM?",    suf:"",                                  level:3, theme:4, ill:9  },
+  { id:33, pre:"Anh/em đã bao giờ phải",                h:"GIẢ VỜ VUI\nKHI BÊN NHAU?", suf:"",                                 level:3, theme:3, ill:3, orig:true  },
+  { id:34, pre:"Điều gì rất muốn làm cho người kia",    h:"NHƯNG CHƯA\nTHỂ LÀM?",    suf:"",                                  level:3, theme:4, ill:9, orig:true  },
   { id:35, pre:"Theo anh/em,",                          h:"TÌNH YÊU\nLÝ TƯỞNG",       suf:"trông như thế nào?",               level:3, theme:5, ill:1  },
   { id:36, pre:"Điều gì ở mối quan hệ này",             h:"LÀM ANH/EM\nBẤT NGỜ NHẤT?", suf:"",                                level:3, theme:1, ill:6  },
   { id:37, pre:"Anh/em muốn người kia",                 h:"HIỂU MÌNH\nHƠN Ở ĐÂU?",   suf:"",                                  level:3, theme:2, ill:8  },
   { id:38, pre:"Nếu chúng ta phải xa cách 3 tháng,",   h:"ANH/EM\nSẼ LÀM GÌ?",       suf:"",                                  level:3, theme:3, ill:7  },
-  { id:39, pre:"Điều gì anh/em muốn nói với người kia", h:"NHƯNG CHƯA\nDÁM NÓI?",    suf:"",                                  level:3, theme:4, ill:3  },
-  { id:40, pre:"Mục tiêu của anh/em",                  h:"CHO\nTÌNH YÊU NÀY",         suf:"là gì?",                           level:3, theme:5, ill:5  },
+  { id:39, pre:"Điều gì anh/em muốn nói với người kia", h:"NHƯNG CHƯA\nDÁM NÓI?",    suf:"",                                  level:3, theme:4, ill:3, orig:true  },
+  { id:40, pre:"Mục tiêu của anh/em",                  h:"CHO\nTÌNH YÊU NÀY",         suf:"là gì?",                           level:3, theme:5, ill:5, orig:true  },
 
   // ── LEVEL 4: Yêu trên 1 năm ──────────────────────
-  { id:41, pre:"Điều gì anh/em",                        h:"KHÔNG THỂ\nTHA THỨ",       suf:"cho người còn lại?",               level:4, theme:1, ill:6  },
-  { id:42, pre:"Kể về lần chúng mình",                  h:"LÀM TỔN THƯƠNG\nNHAU",    suf:"— điều gì khiến anh/em day dứt?",  level:4, theme:2, ill:3  },
-  { id:43, pre:"Điểm xấu nào của mình",                 h:"ANH/EM MUỐN\nĐƯỢC CẢM THÔNG?", suf:"",                            level:4, theme:3, ill:8  },
-  { id:44, pre:"Khi chúng ta cãi nhau, bên ngoài em cư xử...", h:"NHƯNG BÊN TRONG\nEM NGHĨ...", suf:"(điền vào chỗ trống)",  level:4, theme:4, ill:3  },
-  { id:45, pre:"Từ khi quen nhau,",                     h:"MÌNH ĐÃ BỎ\nĐƯỢC TẬT XẤU GÌ?", suf:"",                           level:4, theme:5, ill:6  },
-  { id:46, pre:"Anh/em đã bao giờ",                     h:"SO SÁNH\nNGƯỜI KIA",      suf:"với ai khác chưa?",                level:4, theme:1, ill:2  },
-  { id:47, pre:"Điều gì đã từng khiến",                 h:"MỐI QUAN HỆ\nSUÝT ĐỔ VỠ?", suf:"",                                level:4, theme:2, ill:3  },
-  { id:48, pre:"Trong tất cả nơi mình đã đi,",          h:"KỶ NIỆM\nĐẸP NHẤT",       suf:"là ở đâu?",                        level:4, theme:3, ill:7  },
-  { id:49, pre:"Anh/em muốn nghỉ hưu năm bao nhiêu tuổi?", h:"KHI ĐÓ HAI ĐỨA\nSẼ LÀM GÌ?", suf:"",                        level:4, theme:4, ill:9  },
-  { id:50, pre:"Đây là thử thách:",                     h:"CÙNG CHỌN\nMỘT ĐIỂM ĐẾN",  suf:"cho chuyến đi tương lai của đôi ta!", level:4, theme:5, ill:7 },
-  { id:51, pre:"Điều gì anh/em",                        h:"TIN TƯỞNG NHẤT\nVÀO NGƯỜI KIA?", suf:"",                           level:4, theme:1, ill:10 },
-  { id:52, pre:"Khi nhìn thấy người kia khóc lần đầu,", h:"ANH/EM CẢM\nTHẤY THẾ NÀO?", suf:"",                              level:4, theme:2, ill:1  },
-  { id:53, pre:"Nếu một mai phải chia tay,",            h:"ANH/EM SẼ\nNÓI GÌ",       suf:"với người kia?",                   level:4, theme:3, ill:3  },
-  { id:54, pre:"Đã bao giờ anh/em nghĩ đến",           h:"ĐOẠN KẾT\nCỦA TÌNH YÊU ĐÔI TA?", suf:"",                          level:4, theme:4, ill:2  },
-  { id:55, pre:"Thử thách: Trong 6 phút,",              h:"KỂ LẠI CÂU\nCHUYỆN TÌNH",  suf:"của chúng mình với thật nhiều kỷ niệm!", level:4, theme:5, ill:1 },
+  { id:41, pre:"Điều gì anh/em",                        h:"KHÔNG THỂ\nTHA THỨ",       suf:"cho người còn lại?",               level:4, theme:1, ill:6, orig:true  },
+  { id:42, pre:"Kể về lần chúng mình",                  h:"LÀM TỔN THƯƠNG\nNHAU",    suf:"— điều gì khiến anh/em day dứt?",  level:4, theme:2, ill:3, orig:true  },
+  { id:43, pre:"Điểm xấu nào của mình",                 h:"ANH/EM MUỐN\nĐƯỢC CẢM THÔNG?", suf:"",                            level:4, theme:3, ill:8, orig:true  },
+  { id:44, pre:"Khi chúng ta cãi nhau, bên ngoài em cư xử...", h:"NHƯNG BÊN TRONG\nEM NGHĨ...", suf:"(điền vào chỗ trống)",  level:4, theme:4, ill:3, orig:true  },
+  { id:45, pre:"Từ khi quen nhau,",                     h:"MÌNH ĐÃ BỎ\nĐƯỢC TẬT XẤU GÌ?", suf:"",                           level:4, theme:5, ill:6, orig:true  },
+  { id:46, pre:"Anh/em đã bao giờ",                     h:"SO SÁNH\nNGƯỜI KIA",      suf:"với ai khác chưa?",                level:4, theme:1, ill:2, orig:true  },
+  { id:47, pre:"Điều gì đã từng khiến",                 h:"MỐI QUAN HỆ\nSUÝT ĐỔ VỠ?", suf:"",                                level:4, theme:2, ill:3, orig:true  },
+  { id:48, pre:"Trong tất cả nơi mình đã đi,",          h:"KỶ NIỆM\nĐẸP NHẤT",       suf:"là ở đâu?",                        level:4, theme:3, ill:7, orig:true  },
+  { id:49, pre:"Anh/em muốn nghỉ hưu năm bao nhiêu tuổi?", h:"KHI ĐÓ HAI ĐỨA\nSẼ LÀM GÌ?", suf:"",                        level:4, theme:4, ill:9, orig:true  },
+  { id:50, pre:"Đây là thử thách:",                     h:"CÙNG CHỌN\nMỘT ĐIỂM ĐẾN",  suf:"cho chuyến đi tương lai của đôi ta!", level:4, theme:5, ill:7, orig:true },
+  { id:51, pre:"Điều gì anh/em",                        h:"TIN TƯỞNG NHẤT\nVÀO NGƯỜI KIA?", suf:"",                           level:4, theme:1, ill:10, orig:true },
+  { id:52, pre:"Khi nhìn thấy người kia khóc lần đầu,", h:"ANH/EM CẢM\nTHẤY THẾ NÀO?", suf:"",                              level:4, theme:2, ill:1, orig:true  },
+  { id:53, pre:"Nếu một mai phải chia tay,",            h:"ANH/EM SẼ\nNÓI GÌ",       suf:"với người kia?",                   level:4, theme:3, ill:3, orig:true  },
+  { id:54, pre:"Đã bao giờ anh/em nghĩ đến",           h:"ĐOẠN KẾT\nCỦA TÌNH YÊU ĐÔI TA?", suf:"",                          level:4, theme:4, ill:2, orig:true  },
+  { id:55, pre:"Thử thách: Trong 6 phút,",              h:"KỂ LẠI CÂU\nCHUYỆN TÌNH",  suf:"của chúng mình với thật nhiều kỷ niệm!", level:4, theme:5, ill:1, orig:true },
 
   // ── LEVEL 5: Mới kết hôn ──────────────────────
-  { id:56, pre:"Nếu 2 đứa về chung một nhà,",          h:"ĐIỀU HẠNH PHÚC\nNHẤT",     suf:"anh/em nghĩ đến là gì?",          level:5, theme:1, ill:9  },
-  { id:57, pre:"Anh/em thích con mình là trai hay gái?", h:"TÊN CON\nSẼ LÀ GÌ?",     suf:"",                                  level:5, theme:2, ill:5  },
-  { id:58, pre:"Điều anh/em luôn mong ước",             h:"KHI LÀ\nMỘT GIA ĐÌNH",    suf:"là gì?",                           level:5, theme:3, ill:9  },
-  { id:59, pre:"Điều gì trong cách được nuôi dạy",      h:"ANH/EM MUỐN\nTRUYỀN LẠI",  suf:"cho con?",                        level:5, theme:4, ill:5  },
-  { id:60, pre:"Điều gì từ gia đình mình",              h:"ANH/EM QUYẾT\nKHÔNG LẶP LẠI", suf:"khi nuôi dạy con?",            level:5, theme:5, ill:6  },
-  { id:61, pre:"Anh/em có muốn",                       h:"SỐNG THỬ\nVỚI NHAU KHÔNG?", suf:"Tại sao?",                         level:5, theme:1, ill:9  },
-  { id:62, pre:"Điều anh/em muốn đối phương thay đổi", h:"KHI 2 NGƯỜI\nTHÂN MẬT",    suf:"?",                                 level:5, theme:2, ill:1  },
-  { id:63, pre:"Điều anh/em thích nhất ở người kia",   h:"KHI GẦN\nGŨI NHAU",        suf:"?",                                 level:5, theme:3, ill:1  },
-  { id:64, pre:"Có điều gì khiến anh/em còn",          h:"NGẠI KHI\nGẦN GŨI",        suf:"nhau không?",                      level:5, theme:4, ill:8  },
-  { id:65, pre:"Đâu là không gian anh/em cho là",      h:"LÝ TƯỞNG\nNHẤT",           suf:"để thân mật?",                     level:5, theme:5, ill:7  },
-  { id:66, pre:"Nếu gia đình không tin vào mối quan hệ này,", h:"ANH/EM\nSẼ LÀM GÌ?", suf:"",                                level:5, theme:1, ill:9  },
+  { id:56, pre:"Nếu 2 đứa về chung một nhà,",          h:"ĐIỀU HẠNH PHÚC\nNHẤT",     suf:"anh/em nghĩ đến là gì?",          level:5, theme:1, ill:9, orig:true  },
+  { id:57, pre:"Anh/em thích con mình là trai hay gái?", h:"TÊN CON\nSẼ LÀ GÌ?",     suf:"",                                  level:5, theme:2, ill:5, orig:true  },
+  { id:58, pre:"Điều anh/em luôn mong ước",             h:"KHI LÀ\nMỘT GIA ĐÌNH",    suf:"là gì?",                           level:5, theme:3, ill:9, orig:true  },
+  { id:59, pre:"Điều gì trong cách được nuôi dạy",      h:"ANH/EM MUỐN\nTRUYỀN LẠI",  suf:"cho con?",                        level:5, theme:4, ill:5, orig:true  },
+  { id:60, pre:"Điều gì từ gia đình mình",              h:"ANH/EM QUYẾT\nKHÔNG LẶP LẠI", suf:"khi nuôi dạy con?",            level:5, theme:5, ill:6, orig:true  },
+  { id:61, pre:"Anh/em có muốn",                       h:"SỐNG THỬ\nVỚI NHAU KHÔNG?", suf:"Tại sao?",                         level:5, theme:1, ill:9, orig:true  },
+  { id:62, pre:"Điều anh/em muốn đối phương thay đổi", h:"KHI 2 NGƯỜI\nTHÂN MẬT",    suf:"?",                                 level:5, theme:2, ill:1, orig:true  },
+  { id:63, pre:"Điều anh/em thích nhất ở người kia",   h:"KHI GẦN\nGŨI NHAU",        suf:"?",                                 level:5, theme:3, ill:1, orig:true  },
+  { id:64, pre:"Có điều gì khiến anh/em còn",          h:"NGẠI KHI\nGẦN GŨI",        suf:"nhau không?",                      level:5, theme:4, ill:8, orig:true  },
+  { id:65, pre:"Đâu là không gian anh/em cho là",      h:"LÝ TƯỞNG\nNHẤT",           suf:"để thân mật?",                     level:5, theme:5, ill:7, orig:true  },
+  { id:66, pre:"Nếu gia đình không tin vào mối quan hệ này,", h:"ANH/EM\nSẼ LÀM GÌ?", suf:"",                                level:5, theme:1, ill:9, orig:true  },
   { id:67, pre:"Điều gì khiến anh/em cảm thấy",        h:"ĐƯỢC YÊU THƯƠNG\nTRONG HÔN NHÂN?", suf:"",                         level:5, theme:2, ill:10 },
   { id:68, pre:"Anh/em muốn xây dựng",                 h:"TỔ ẤM\nNHƯ THẾ NÀO?",     suf:"Ở đâu?",                           level:5, theme:3, ill:9  },
   { id:69, pre:"Khoảnh khắc nào trong",                h:"ĐÁM CƯỚI\nNHỚ MÃI",        suf:"?",                                 level:5, theme:4, ill:2  },
   { id:70, pre:"Điều anh/em muốn",                     h:"HỌC HỎI\nTỪ NGƯỜI KIA",    suf:"trong hôn nhân?",                  level:5, theme:5, ill:8  },
 
   // ── LEVEL 6: Kết hôn trên 1 năm ──────────────────────
-  { id:71, pre:"Trong gia đình, sự ra đi của ai",      h:"ĐAU KHỔ\nNHẤT?",          suf:"Tại sao?",                         level:6, theme:1, ill:6  },
-  { id:72, pre:"Nếu được thay đổi một điều",            h:"ĐÃ XẢY RA\nTRONG GIA ĐÌNH", suf:"anh/em sẽ chọn gì?",            level:6, theme:2, ill:3  },
-  { id:73, pre:"Anh/em có quan trọng về",              h:"\"LẦN ĐẦU\"\nCỦA NHAU",     suf:"không? Tại sao?",                 level:6, theme:3, ill:10 },
-  { id:74, pre:"Điều anh/em nhất định phải làm",       h:"TRƯỚC KHI\nGIÀ ĐI",        suf:"?",                                 level:6, theme:4, ill:7  },
-  { id:75, pre:"Hãy kể lại",                           h:"GIẤC MƠ\nKỲ LẠ NHẤT",      suf:"gần đây — miêu tả đủ 5 giác quan!", level:6, theme:5, ill:4 },
+  { id:71, pre:"Trong gia đình, sự ra đi của ai",      h:"ĐAU KHỔ\nNHẤT?",          suf:"Tại sao?",                         level:6, theme:1, ill:6, orig:true  },
+  { id:72, pre:"Nếu được thay đổi một điều",            h:"ĐÃ XẢY RA\nTRONG GIA ĐÌNH", suf:"anh/em sẽ chọn gì?",            level:6, theme:2, ill:3, orig:true  },
+  { id:73, pre:"Anh/em có quan trọng về",              h:"\"LẦN ĐẦU\"\nCỦA NHAU",     suf:"không? Tại sao?",                 level:6, theme:3, ill:10, orig:true },
+  { id:74, pre:"Điều anh/em nhất định phải làm",       h:"TRƯỚC KHI\nGIÀ ĐI",        suf:"?",                                 level:6, theme:4, ill:7, orig:true  },
+  { id:75, pre:"Hãy kể lại",                           h:"GIẤC MƠ\nKỲ LẠ NHẤT",      suf:"gần đây — miêu tả đủ 5 giác quan!", level:6, theme:5, ill:4, orig:true },
   { id:76, pre:"Khi nào anh/em cảm thấy",             h:"CÔ ĐƠN NHẤT\nTRONG MỐI QUAN HỆ?", suf:"",                          level:6, theme:1, ill:3  },
   { id:77, pre:"Khi nào anh/em cảm thấy",             h:"KẾT NỐI\nSÂU SẮC NHẤT",    suf:"với người kia?",                   level:6, theme:2, ill:10 },
   { id:78, pre:"Điều gì anh/em muốn thay đổi",        h:"TRONG CUỘC SỐNG\nHÀNG NGÀY",suf:"của hai vợ chồng?",               level:6, theme:3, ill:5  },
@@ -1141,7 +1150,7 @@ const QUESTIONS = [
   { id:82, pre:"Điều gì anh/em ước mình",             h:"LÀM KHÁC ĐI",              suf:"trong cuộc hôn nhân này?",         level:6, theme:2, ill:6  },
   { id:83, pre:"Anh/em cảm thấy thế nào khi",         h:"NGƯỜI KIA\nTHÀNH CÔNG HƠN MÌNH?", suf:"",                          level:6, theme:3, ill:4  },
   { id:84, pre:"Điều gì khiến anh/em",                h:"CƯỜI NHIỀU\nNHẤT",          suf:"trong cuộc sống hàng ngày?",       level:6, theme:4, ill:3  },
-  { id:85, pre:"Nếu phải chọn giữa sự nghiệp và gia đình,", h:"ANH/EM\nSẼ CHỌN GÌ?", suf:"",                                level:6, theme:5, ill:9  },
+  { id:85, pre:"Nếu phải chọn giữa sự nghiệp và gia đình,", h:"ANH/EM\nSẼ CHỌN GÌ?", suf:"",                                level:6, theme:5, ill:9, orig:true  },
 
   // ── LEVEL 7: Kết hôn trên 5 năm ──────────────────────
   { id:86, pre:"Nhìn lại hành trình chúng mình,",     h:"ĐIỀU GÌ\nTỰ HÀO NHẤT?",    suf:"",                                  level:7, theme:1, ill:7  },
@@ -1196,15 +1205,24 @@ function buildLevelList() {
 // ════════════════════════════════════════
 const CARDS_PER_ROUND = 7;
 
-function pickRandom7(level) {
-  const pool = QUESTIONS.filter(q => q.level <= level);
-  // Shuffle toàn bộ pool
-  for (let i = pool.length - 1; i > 0; i--) {
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  // Lấy 7 câu đầu (hoặc ít hơn nếu pool < 7)
-  return pool.slice(0, Math.min(CARDS_PER_ROUND, pool.length));
+  return arr;
+}
+
+function pickRandom7(level) {
+  const all   = QUESTIONS.filter(q => q.level <= level);
+  const orig  = shuffle(all.filter(q => q.orig));   // câu gốc (41 câu)
+  const bonus = shuffle(all.filter(q => !q.orig));  // câu bổ sung
+
+  // 80% = 6 câu gốc, 20% = 1 câu bonus (fallback nếu không đủ)
+  const origPick  = orig.slice(0,  Math.min(6, orig.length));
+  const bonusPick = bonus.slice(0, Math.min(CARDS_PER_ROUND - origPick.length, bonus.length));
+  const result    = shuffle([...origPick, ...bonusPick]);
+  return result.slice(0, CARDS_PER_ROUND);
 }
 
 function startGame(level) {
