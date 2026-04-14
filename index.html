@@ -122,30 +122,81 @@ html, body {
   text-align: center;
   padding: 40px 24px;
 }
-.splash-logo {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 24px;
+.splash-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50px;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 28px;
+  backdrop-filter: blur(6px);
+}
+.splash-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #6EE7A0;
+  box-shadow: 0 0 6px #6EE7A0;
+  flex-shrink: 0;
 }
 .splash-title {
   font-family: 'Caveat', cursive;
-  font-size: 42px;
-  color: #C94B6B;
-  line-height: 1.1;
-  margin-bottom: 6px;
+  font-size: 58px;
+  line-height: 1.0;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FFE066 0%, #FFB347 40%, #F4A7B9 70%, #E8637C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
 }
-.splash-sub {
-  font-size: 13px;
-  color: #E8637C;
-  letter-spacing: 3px;
+.splash-desc {
+  color: rgba(255,255,255,0.82);
+  font-size: 14.5px;
+  line-height: 1.75;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.splash-desc strong { color: #fff; }
+.splash-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  margin: 22px 0 28px;
+}
+.stat-box {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  padding: 12px 6px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+.stat-num {
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FFE066, #FFB347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-size: 9px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 36px;
-}
-.splash-deco {
-  width: 180px;
-  height: 2px;
-  background: linear-gradient(to right, transparent, #E8A0B0, transparent);
-  margin: 0 auto 28px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 4px;
+  display: block;
+  font-weight: 600;
 }
 
 /* ── Level selection ── */
@@ -606,21 +657,47 @@ html, body {
 </div>
 
 <!-- ══════════ SPLASH ══════════ -->
-<div class="screen swirl-bg active" id="screen-splash">
-  <div class="splash-inner">
-    <div class="splash-logo">
-      <svg viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="45" cy="45" r="44" fill="#FFF0F3" stroke="#F4A7B9" stroke-width="2"/>
-        <path d="M45,62 C45,62 18,48 18,30 C18,20 26,15 35,20 C40,23 45,30 45,30 C45,30 50,23 55,20 C64,15 72,20 72,30 C72,48 45,62 45,62Z" stroke="#E8637C" stroke-width="2.5" fill="#FFF0F3"/>
-        <path d="M32,68 C35,65 40,64 45,65 C50,64 55,65 58,68" stroke="#F4A7B9" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+<div class="screen active" id="screen-splash" style="background: radial-gradient(ellipse at 60% 20%, #5B2D8E 0%, #3A1560 40%, #1E0A3C 100%); overflow-y:auto; justify-content:flex-start;">
+  <div class="splash-inner" style="padding: 52px 28px 40px; width:100%; max-width:420px;">
+
+    <!-- Badge -->
+    <div class="splash-badge">
+      <span class="splash-badge-dot"></span>
+      TRÒ CHƠI TƯƠNG TÁC
     </div>
+
+    <!-- Tiêu đề lớn -->
     <div class="splash-title">Ngôn Ngữ<br>Tình Yêu</div>
-    <div class="splash-sub">by Harry Chen</div>
-    <div class="splash-deco"></div>
-    <button class="btn btn-primary" onclick="startMusic(); showScreen('screen-intro')" style="min-width:200px">✨ Ý nghĩa trò chơi</button>
-    <br>
-    <button class="btn btn-outline" onclick="startMusic(); showScreen('screen-rules')" style="min-width:200px; margin-top:12px">📖 Luật chơi</button>
+    <div style="font-size:13px; color:rgba(255,255,255,0.5); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; margin-top:-10px;">by Harry Chen</div>
+
+    <!-- Mô tả ý nghĩa -->
+    <p class="splash-desc">Trong một thế giới bận rộn, chúng ta <strong>quên mất cách hỏi nhau những điều thật lòng</strong> nhất.</p>
+    <p class="splash-desc">Trò chơi này sẽ giúp hai người <strong>kết nối sâu hơn, hiểu nhau hơn và yêu nhau nhiều hơn</strong> — qua từng câu hỏi chạm đến trái tim.</p>
+    <p class="splash-desc" style="font-style:italic; opacity:0.65">✦ Không có câu trả lời đúng hay sai — chỉ có sự thật của anh và em ✦</p>
+
+    <!-- Thống kê -->
+    <div class="splash-stats">
+      <div class="stat-box">
+        <span class="stat-num">100</span>
+        <span class="stat-label">Câu hỏi</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Cấp độ</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Câu/lượt</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">50+</span>
+        <span class="stat-label">Tình huống</span>
+      </div>
+    </div>
+
+    <!-- Nút -->
+    <button class="btn btn-primary" onclick="startMusic(); showScreen('screen-rules')" style="min-width:100%; background: linear-gradient(135deg,#E8637C,#C94B6B); font-size:16px; padding:16px;">📖 Xem luật chơi →</button>
+    <button class="btn btn-outline" onclick="startMusic(); showScreen('screen-intro')" style="min-width:100%; margin-top:12px; border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.75); font-size:14px;">✨ Ý nghĩa trò chơi</button>
   </div>
 </div>
 
@@ -902,8 +979,8 @@ const QUESTIONS = [
   { id:60, pre:"Điều gì từ gia đình mình",              h:"ANH/EM QUYẾT\nKHÔNG LẶP LẠI", suf:"khi nuôi dạy con?",            level:5, theme:5, ill:6  },
   { id:61, pre:"Anh/em có muốn",                       h:"SỐNG THỬ\nVỚI NHAU KHÔNG?", suf:"Tại sao?",                         level:5, theme:1, ill:9  },
   { id:62, pre:"Điều anh/em muốn đối phương thay đổi", h:"KHI 2 NGƯỜI\nTHÂN MẬT",    suf:"?",                                 level:5, theme:2, ill:1  },
-  { id:63, pre:"Điều anh/em thích nhất ở người kia",   h:"KHI GẦN\nGỮI NHAU",        suf:"?",                                 level:5, theme:3, ill:1  },
-  { id:64, pre:"Có điều gì khiến anh/em còn",          h:"NGẠI KHI\nGẦN GỮI",        suf:"nhau không?",                      level:5, theme:4, ill:8  },
+  { id:63, pre:"Điều anh/em thích nhất ở người kia",   h:"KHI GẦN\nGŨI NHAU",        suf:"?",                                 level:5, theme:3, ill:1  },
+  { id:64, pre:"Có điều gì khiến anh/em còn",          h:"NGẠI KHI\nGẦN GŨI",        suf:"nhau không?",                      level:5, theme:4, ill:8  },
   { id:65, pre:"Đâu là không gian anh/em cho là",      h:"LÝ TƯỞNG\nNHẤT",           suf:"để thân mật?",                     level:5, theme:5, ill:7  },
   { id:66, pre:"Nếu gia đình không tin vào mối quan hệ này,", h:"ANH/EM\nSẼ LÀM GÌ?", suf:"",                                level:5, theme:1, ill:9  },
   { id:67, pre:"Điều gì khiến anh/em cảm thấy",        h:"ĐƯỢC YÊU THƯƠNG\nTRONG HÔN NHÂN?", suf:"",                         level:5, theme:2, ill:10 },
@@ -960,16 +1037,16 @@ function buildLevelList() {
   const container = document.getElementById('level-list');
   container.innerHTML = '';
   LEVELS.forEach(lv => {
-    const count = QUESTIONS.filter(q => q.level <= lv.id).length;
+    const pool = QUESTIONS.filter(q => q.level <= lv.id).length;
     const btn = document.createElement('button');
     btn.className = 'level-btn';
     btn.innerHTML = `
       <div class="level-icon" style="background:${lv.bg}">${lv.emoji}</div>
       <div class="level-info">
         <div class="level-name">${lv.name}</div>
-        <div class="level-desc">${lv.desc}</div>
+        <div class="level-desc">${lv.desc} · ${pool} câu khả dụng</div>
       </div>
-      <div class="level-count" style="color:${lv.color}">${count} câu</div>
+      <div class="level-count" style="color:${lv.color}">7 câu</div>
     `;
     btn.onclick = () => startGame(lv.id);
     container.appendChild(btn);
@@ -979,16 +1056,23 @@ function buildLevelList() {
 // ════════════════════════════════════════
 // GAME LOGIC
 // ════════════════════════════════════════
+const CARDS_PER_ROUND = 7;
+
+function pickRandom7(level) {
+  const pool = QUESTIONS.filter(q => q.level <= level);
+  // Shuffle toàn bộ pool
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  // Lấy 7 câu đầu (hoặc ít hơn nếu pool < 7)
+  return pool.slice(0, Math.min(CARDS_PER_ROUND, pool.length));
+}
+
 function startGame(level) {
   selectedLevel = level;
-  currentCards = QUESTIONS.filter(q => q.level <= level);
-  // Fisher-Yates shuffle
-  for (let i = currentCards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
-  }
+  currentCards = pickRandom7(level);
   currentIndex = 0;
-  // Show sparkle popup first, closeSparkle() will start the game
   showSparkle(level);
 }
 
@@ -1050,11 +1134,7 @@ function nextCard() {
 }
 
 function restartGame() {
-  currentCards = QUESTIONS.filter(q => q.level <= selectedLevel);
-  for (let i = currentCards.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
-  }
+  currentCards = pickRandom7(selectedLevel);
   currentIndex = 0;
   showScreen('screen-game');
   renderCard();
@@ -1181,15 +1261,39 @@ let ytReady = false;
   document.head.appendChild(tag);
 })();
 
+// Auto-play 5s sau lần tương tác đầu tiên
+let autoPlayTriggered = false;
+function triggerAutoPlay() {
+  if (autoPlayTriggered) return;
+  autoPlayTriggered = true;
+  document.getElementById('music-btn').style.display = 'flex';
+  setTimeout(() => {
+    if (ytReady && ytPlayer) {
+      ytPlayer.setVolume(55);
+      ytPlayer.playVideo();
+    } else {
+      const wait = setInterval(() => {
+        if (ytReady && ytPlayer) {
+          clearInterval(wait);
+          ytPlayer.setVolume(55);
+          ytPlayer.playVideo();
+        }
+      }, 300);
+    }
+  }, 5000);
+}
+document.addEventListener('click', triggerAutoPlay, { once: true });
+document.addEventListener('touchstart', triggerAutoPlay, { once: true });
+
 window.onYouTubeIframeAPIReady = function() {
   ytPlayer = new YT.Player('yt-player', {
     height: '1',
     width: '1',
-    videoId: 'hbuB3LZF1Ps',
+    videoId: 'eICOeG_Tx_Y',
     playerVars: {
       autoplay: 0,
       loop: 1,
-      playlist: 'hbuB3LZF1Ps',
+      playlist: 'eICOeG_Tx_Y',
       controls: 0,
       disablekb: 1,
       fs: 0,
@@ -1212,24 +1316,8 @@ window.onYouTubeIframeAPIReady = function() {
 };
 
 function startMusic() {
-  document.getElementById('music-btn').style.display = 'flex';
-  if (ytReady && ytPlayer) {
-    ytPlayer.setVolume(60);
-    ytPlayer.playVideo();
-    musicPlaying = true;
-    document.getElementById('music-btn').textContent = '🎵';
-  } else {
-    // Wait until ready
-    const wait = setInterval(() => {
-      if (ytReady && ytPlayer) {
-        clearInterval(wait);
-        ytPlayer.setVolume(60);
-        ytPlayer.playVideo();
-        musicPlaying = true;
-        document.getElementById('music-btn').textContent = '🎵';
-      }
-    }, 300);
-  }
+  // Nhạc tự phát sau 5s khi user click lần đầu — hàm này giữ để tương thích
+  triggerAutoPlay();
 }
 
 function toggleMusic() {
