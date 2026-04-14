@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ngôn Ngữ Tình Yêu by Harry Chen</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #F8C4D4;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.screen {
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.screen.active { display: flex; }
+
+/* ── Swirl background ── */
+.swirl-bg {
+  background-color: #F4B8CA;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='none' stroke='%23FDDDE6' stroke-width='2.5'%3E%3Cpath d='M60,60 C60,40 80,30 80,15 C80,5 70,0 60,5 C50,10 45,20 50,30 C55,40 70,45 70,60 C70,75 55,80 50,70 C45,60 55,50 60,60Z'/%3E%3Cpath d='M20,80 C20,65 35,58 35,45 C35,35 28,30 20,33 C12,36 9,46 14,53 C19,60 30,62 30,75 C30,85 22,88 18,82 C14,76 20,70 20,80Z'/%3E%3Cpath d='M95,30 C95,18 108,12 108,2 C108,-5 100,-8 93,-4 C86,0 84,10 88,16 C92,22 102,24 102,36 C102,44 95,47 91,42 C87,37 93,30 95,30Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 120px;
+}
+
+/* ── Content box on swirl screens ── */
+.swirl-card {
+  background: #FFF0F3;
+  border-radius: 28px;
+  padding: 32px 28px;
+  width: calc(100% - 48px);
+  max-width: 360px;
+  max-height: 82vh;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(180,60,80,0.12);
+}
+.swirl-card::-webkit-scrollbar { width: 4px; }
+.swirl-card::-webkit-scrollbar-thumb { background: #F4A7B9; border-radius: 4px; }
+
+.tag-badge {
+  display: inline-block;
+  background: #E8637C;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 6px 20px;
+  border-radius: 30px;
+  margin-bottom: 18px;
+}
+
+.swirl-card h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 38px;
+  color: #C94B6B;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.swirl-card p {
+  color: #9E3558;
+  font-size: 14.5px;
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+.swirl-card p strong {
+  color: #C94B6B;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-align: center;
+}
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: #E8637C;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(232,99,124,0.4);
+  margin-top: 20px;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #C94B6B;
+  border: 2px solid #E8A0B0;
+  margin-top: 10px;
+}
+
+/* ── Splash screen ── */
+#screen-splash {
+  background: #F4B8CA;
+}
+.splash-inner {
+  text-align: center;
+  padding: 40px 24px;
+}
+.splash-logo {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 24px;
+}
+.splash-title {
+  font-family: 'Caveat', cursive;
+  font-size: 42px;
+  color: #C94B6B;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.splash-sub {
+  font-size: 13px;
+  color: #E8637C;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+.splash-deco {
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #E8A0B0, transparent);
+  margin: 0 auto 28px;
+}
+
+/* ── Level selection ── */
+#screen-level {
+  background: #FFF8FA;
+  overflow-y: auto;
+}
+.level-header {
+  text-align: center;
+  padding: 40px 24px 20px;
+}
+.level-header h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 34px;
+  color: #C94B6B;
+  margin-bottom: 8px;
+}
+.level-header p { font-size: 14px; color: #9E7080; }
+
+.level-list {
+  width: 100%;
+  padding: 0 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.level-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(200,80,100,0.08);
+  transition: all 0.18s;
+  width: 100%;
+  text-align: left;
+}
+.level-btn:active { transform: scale(0.97); }
+
+.level-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.level-info { flex: 1; }
+.level-name { font-weight: 600; font-size: 15px; color: #3D1A24; }
+.level-desc { font-size: 12px; color: #9E7080; margin-top: 2px; }
+.level-count { font-size: 12px; font-weight: 600; }
+
+/* ── Game screen ── */
+#screen-game {
+  overflow: hidden;
+}
+
+.game-header {
+  width: 100%;
+  max-width: 430px;
+  padding: 16px 20px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.game-progress-text { font-size: 13px; font-weight: 500; }
+.btn-end-game {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 500;
+}
+
+.card-container {
+  flex: 1;
+  width: 100%;
+  max-width: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Question Card ── */
+.q-card {
+  width: 100%;
+  max-width: 370px;
+  border-radius: 28px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  max-height: 72vh;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+.q-card:active { transform: scale(0.98); }
+
+.q-card-inner {
+  background: #fff;
+  border-radius: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 22px 20px;
+  overflow: hidden;
+}
+
+.card-number {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.card-question-text {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  line-height: 1.65;
+  font-weight: 400;
+  flex: 0 0 auto;
+}
+
+.card-highlight {
+  font-family: 'Caveat', cursive;
+  font-size: 42px;
+  text-align: center;
+  line-height: 1.1;
+  margin: 12px 0;
+  flex: 0 0 auto;
+}
+
+.card-suffix {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  line-height: 1.65;
+  flex: 0 0 auto;
+}
+
+.card-illustration {
+  width: 100%;
+  max-width: 200px;
+  margin-top: 16px;
+  flex: 0 0 auto;
+}
+
+.card-tap-hint {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* ── Progress bar ── */
+.progress-bar-wrap {
+  width: calc(100% - 40px);
+  max-width: 390px;
+  height: 4px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 4px;
+  margin: 6px 0 10px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* ── End screen ── */
+#screen-end {
+  background: #F4B8CA;
+}
+.end-inner {
+  text-align: center;
+  padding: 40px 28px;
+}
+.end-inner h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 46px;
+  color: #C94B6B;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.end-inner p {
+  color: #9E3558;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* ── Form fields ── */
+.form-fields {
+  margin: 18px 0 8px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #C94B6B;
+  letter-spacing: 0.5px;
+}
+.form-input {
+  width: 100%;
+  padding: 11px 16px;
+  border: 1.8px solid #F4A7B9;
+  border-radius: 14px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  color: #3D1A24;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input:focus {
+  border-color: #E8637C;
+  box-shadow: 0 0 0 3px rgba(232,99,124,0.12);
+}
+.form-input::placeholder { color: #C9A0AC; }
+.form-input.error { border-color: #E8637C; box-shadow: 0 0 0 3px rgba(232,99,124,0.18); background: #FFF5F7; }
+.form-error-msg { font-size: 11.5px; color: #E8637C; margin-top: 3px; display: none; }
+.form-error-msg.show { display: block; }
+.form-label span.req { color: #E8637C; margin-left: 2px; }
+.btn-loading { opacity: 0.7; cursor: not-allowed; }
+
+/* ── Welcome popup ── */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(244,184,202,0.6);
+  backdrop-filter: blur(8px);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+.welcome-overlay.hidden { display: none; }
+.welcome-box {
+  background: #fff;
+  border-radius: 28px;
+  padding: 38px 30px 32px;
+  max-width: 310px;
+  width: calc(100% - 48px);
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(200,80,100,0.22);
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1);
+}
+.welcome-hearts {
+  font-size: 46px;
+  margin-bottom: 14px;
+  display: block;
+  animation: heartbeat 1.4s ease infinite;
+}
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  30%      { transform: scale(1.15); }
+  60%      { transform: scale(1.05); }
+}
+.welcome-name {
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  color: #E8637C;
+  margin-bottom: 6px;
+}
+.welcome-msg {
+  font-size: 15px;
+  color: #9E5070;
+  line-height: 1.75;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.welcome-particle {
+  position: absolute;
+  pointer-events: none;
+  animation: sparkleFloat linear infinite;
+  opacity: 0;
+}
+
+/* ── Music toggle button ── */
+.music-btn {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #F4A7B9;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 16px rgba(200,80,100,0.15);
+  transition: transform 0.2s;
+}
+.music-btn:active { transform: scale(0.9); }
+
+/* ── Sparkle popup ── */
+.sparkle-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(244,184,202,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+.sparkle-overlay.hidden { display: none; }
+
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+.sparkle-box {
+  background: #fff;
+  border-radius: 28px;
+  padding: 36px 32px;
+  max-width: 320px;
+  width: calc(100% - 48px);
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(200,80,100,0.2);
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.sparkle-emoji { font-size: 52px; margin-bottom: 12px; display: block; animation: bounce 1.6s infinite; }
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.sparkle-title {
+  font-family: 'Caveat', cursive;
+  font-size: 34px;
+  color: #C94B6B;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.sparkle-msg {
+  font-size: 14px;
+  color: #9E5070;
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+.sparkle-btn {
+  background: linear-gradient(135deg, #F4A7B9, #E8637C);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 13px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(232,99,124,0.4);
+  transition: transform 0.15s;
+}
+.sparkle-btn:active { transform: scale(0.95); }
+
+/* sparkle particles */
+.sparkle-particle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 18px;
+  animation: sparkleFloat linear infinite;
+  opacity: 0;
+}
+@keyframes sparkleFloat {
+  0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(-180px) rotate(360deg); opacity: 0; }
+}
+
+/* ── Slide animation ── */
+@keyframes slideInRight {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+.slide-in { animation: slideInRight 0.3s ease forwards; }
+.slide-in-left { animation: slideInLeft 0.3s ease forwards; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ YOUTUBE PLAYER (ẩn) ══════════ -->
+<div id="yt-player-wrap" style="position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;overflow:hidden;">
+  <div id="yt-player"></div>
+</div>
+
+<!-- ══════════ MUSIC TOGGLE ══════════ -->
+<button class="music-btn" id="music-btn" onclick="toggleMusic()" title="Nhạc nền" style="display:none">🎵</button>
+
+<!-- ══════════ WELCOME POPUP ══════════ -->
+<div class="welcome-overlay hidden" id="welcome-overlay">
+  <div class="welcome-box" id="welcome-box">
+    <span class="welcome-hearts">💕</span>
+    <div class="welcome-name" id="welcome-name">Xin chào!</div>
+    <div class="welcome-msg">"Chúc bạn sẽ có một trải nghiệm thú vị bên cạnh người bạn thương quý" 🌸</div>
+    <button class="sparkle-btn" onclick="closeWelcome()">Vào chơi thôi! →</button>
+  </div>
+</div>
+
+<!-- ══════════ SPARKLE POPUP ══════════ -->
+<div class="sparkle-overlay hidden" id="sparkle-overlay">
+  <div class="sparkle-box" id="sparkle-box">
+    <span class="sparkle-emoji">💕</span>
+    <div class="sparkle-title" id="sparkle-title">Chúc hai người...</div>
+    <div class="sparkle-msg" id="sparkle-msg"></div>
+    <button class="sparkle-btn" onclick="closeSparkle()">Bắt đầu thôi! ✨</button>
+  </div>
+</div>
+
+<!-- ══════════ SPLASH ══════════ -->
+<div class="screen swirl-bg active" id="screen-splash">
+  <div class="splash-inner">
+    <div class="splash-logo">
+      <svg viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="45" cy="45" r="44" fill="#FFF0F3" stroke="#F4A7B9" stroke-width="2"/>
+        <path d="M45,62 C45,62 18,48 18,30 C18,20 26,15 35,20 C40,23 45,30 45,30 C45,30 50,23 55,20 C64,15 72,20 72,30 C72,48 45,62 45,62Z" stroke="#E8637C" stroke-width="2.5" fill="#FFF0F3"/>
+        <path d="M32,68 C35,65 40,64 45,65 C50,64 55,65 58,68" stroke="#F4A7B9" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="splash-title">Ngôn Ngữ<br>Tình Yêu</div>
+    <div class="splash-sub">by Harry Chen</div>
+    <div class="splash-deco"></div>
+    <button class="btn btn-primary" onclick="startMusic(); showScreen('screen-intro')" style="min-width:200px">✨ Ý nghĩa trò chơi</button>
+    <br>
+    <button class="btn btn-outline" onclick="startMusic(); showScreen('screen-rules')" style="min-width:200px; margin-top:12px">📖 Luật chơi</button>
+  </div>
+</div>
+
+<!-- ══════════ GIỚI THIỆU ══════════ -->
+<div class="screen swirl-bg" id="screen-intro">
+  <div class="swirl-card">
+    <div class="tag-badge">GIỚI THIỆU</div>
+    <h2>Ngôn Ngữ Tình Yêu</h2>
+    <p><strong>Ngôn Ngữ Tình Yêu by Harry Chen</strong> là bộ 100 câu hỏi kết nối sâu dành cho các cặp đôi — từ buổi hẹn hò đầu tiên đến những năm tháng bên nhau lâu dài.</p>
+    <p>Mỗi câu hỏi được thiết kế để chạm đến những cảm xúc thật, khơi dậy ký ức, và tạo ra những cuộc trò chuyện mà bạn sẽ nhớ mãi.</p>
+    <p>Không có câu trả lời đúng hay sai. Chỉ có <strong>sự thật của anh/em</strong> — và đó là điều đẹp nhất bạn có thể trao cho nhau.</p>
+    <p style="font-style:italic; opacity:0.8">✦ Đây là trò chơi của sự thành thật và yêu thương ✦</p>
+    <button class="btn btn-primary" onclick="showScreen('screen-rules')">Xem luật chơi →</button>
+    <br>
+    <button class="btn btn-outline" onclick="showScreen('screen-splash')" style="margin-top:10px; font-size:13px">← Quay lại</button>
+  </div>
+</div>
+
+<!-- ══════════ LUẬT CHƠI ══════════ -->
+<div class="screen swirl-bg" id="screen-rules">
+  <div class="swirl-card">
+    <div class="tag-badge">LUẬT CHƠI</div>
+    <h2>Cách chơi</h2>
+    <p><strong>① Chọn cấp độ</strong><br>Chọn cấp độ phù hợp với mối quan hệ của hai bạn. Câu hỏi sẽ được lọc tương ứng.</p>
+    <p><strong>② Rút thẻ ngẫu nhiên</strong><br>Mỗi lần chơi, thứ tự câu hỏi sẽ được xáo trộn mới — không bao giờ lặp lại!</p>
+    <p><strong>③ Trả lời thành thật</strong><br>Người rút thẻ trả lời trước. Người còn lại lắng nghe, không phán xét.</p>
+    <p><strong>④ Đổi lượt</strong><br>Sau mỗi câu, đổi người rút thẻ tiếp theo. Hoặc cùng nhau trả lời một câu!</p>
+    <p><strong>⑤ Tap để tiếp tục</strong><br>Chạm vào thẻ để sang câu kế tiếp bất cứ lúc nào.</p>
+
+    <div class="form-fields">
+      <div class="form-group">
+        <label class="form-label">Xin phép được gọi bạn là <span class="req">*</span></label>
+        <input class="form-input" id="user-name" type="text" placeholder="Tên của bạn..." maxlength="40" autocomplete="off" oninput="clearError('user-name')"/>
+        <div class="form-error-msg" id="err-name">Vui lòng nhập tên của bạn nhé 🌸</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Thông tin sẽ gửi cho bạn qua email <span class="req">*</span></label>
+        <input class="form-input" id="user-email" type="email" placeholder="Email của bạn..." autocomplete="off" oninput="clearError('user-email')"/>
+        <div class="form-error-msg" id="err-email">Vui lòng nhập email hợp lệ nhé 💌</div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-submit" onclick="submitAndStart()" style="width:100%; margin-top:4px">Bắt đầu thôi →</button>
+    <br>
+    <button class="btn btn-outline" onclick="showScreen('screen-intro')" style="margin-top:10px; font-size:13px">← Quay lại</button>
+  </div>
+</div>
+
+<!-- ══════════ CHỌN CẤP ĐỘ ══════════ -->
+<div class="screen" id="screen-level" style="background:#FFF8FA; overflow-y:auto; justify-content:flex-start;">
+  <div class="level-header">
+    <h2>Anh &amp; em đang ở đâu?</h2>
+    <p>Chọn cấp độ để nhận câu hỏi phù hợp</p>
+  </div>
+  <div class="level-list" id="level-list"></div>
+</div>
+
+<!-- ══════════ GAME ══════════ -->
+<div class="screen" id="screen-game">
+  <div class="game-header" id="game-header">
+    <span class="game-progress-text" id="progress-text">1 / 50</span>
+    <button class="btn-end-game" id="btn-end-game" onclick="confirmEnd()" style="background:#F5E0E5; color:#C94B6B;">Kết thúc</button>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+  <div class="card-container" id="card-container" onclick="nextCard()">
+    <!-- Card rendered by JS -->
+  </div>
+</div>
+
+<!-- ══════════ KẾT THÚC ══════════ -->
+<div class="screen swirl-bg" id="screen-end">
+  <div class="end-inner swirl-card">
+    <div style="font-size:56px; margin-bottom:12px">💕</div>
+    <h2>Cảm ơn hai người!</h2>
+    <p>Hy vọng những câu hỏi này đã giúp anh và em hiểu nhau hơn một chút — và yêu nhau nhiều hơn một chút.</p>
+    <p style="font-style:italic; opacity:0.7">✦ Tình yêu không phải điểm đến — đó là hành trình mỗi ngày ✦</p>
+    <button class="btn btn-primary" onclick="restartGame()" style="min-width:200px">Chơi lại 🔀</button>
+    <br>
+    <button class="btn btn-outline" onclick="showScreen('screen-level')" style="min-width:200px; margin-top:10px; font-size:13px">Đổi cấp độ</button>
+    <br>
+    <button class="btn btn-outline" onclick="showScreen('screen-splash')" style="min-width:200px; margin-top:8px; font-size:13px">Trang chủ</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// THEMES
+// ════════════════════════════════════════
+const THEMES = {
+  1: { name:'Hồng',     border:'#F4A7B9', highlight:'#E8637C', bg:'#FFF0F3', text:'#C94B6B' },
+  2: { name:'Tím',      border:'#C8A8E9', highlight:'#8B5BB8', bg:'#F5F0FF', text:'#7D4FB5' },
+  3: { name:'Xanh lá',  border:'#9DCE9D', highlight:'#4A8C4A', bg:'#F0FFF0', text:'#3A7A3A' },
+  4: { name:'Cam',      border:'#FFB347', highlight:'#D46B00', bg:'#FFF8F0', text:'#C06000' },
+  5: { name:'Vàng',     border:'#FFE066', highlight:'#B8920A', bg:'#FFFDF0', text:'#9E7D00' },
+};
+
+// ════════════════════════════════════════
+// LEVELS
+// ════════════════════════════════════════
+const LEVELS = [
+  { id:1, emoji:'☕', name:'Buổi hẹn hò',       desc:'Lần đầu gặp gỡ',              color:'#F4A7B9', bg:'#FFF0F3' },
+  { id:2, emoji:'🌸', name:'Đang tìm hiểu',      desc:'Đang khám phá nhau',          color:'#C8A8E9', bg:'#F5F0FF' },
+  { id:3, emoji:'💌', name:'Yêu dưới 1 năm',     desc:'Mới bắt đầu yêu',             color:'#9DCE9D', bg:'#F0FFF0' },
+  { id:4, emoji:'💑', name:'Yêu trên 1 năm',     desc:'Đã hiểu nhau nhiều hơn',      color:'#FFB347', bg:'#FFF8F0' },
+  { id:5, emoji:'💍', name:'Mới kết hôn',        desc:'Vừa bước vào cuộc sống mới',  color:'#F4A7B9', bg:'#FFF0F3' },
+  { id:6, emoji:'🏡', name:'Kết hôn trên 1 năm', desc:'Đã qua những thăng trầm đầu', color:'#C8A8E9', bg:'#F5F0FF' },
+  { id:7, emoji:'🌳', name:'Kết hôn trên 5 năm', desc:'Đồng hành lâu dài',           color:'#9DCE9D', bg:'#F0FFF0' },
+];
+
+// ════════════════════════════════════════
+// SVG ILLUSTRATIONS
+// ════════════════════════════════════════
+function getSVG(type, color) {
+  const c = color;
+  const svgs = {
+    1: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M70,68 C70,68 28,46 28,24 C28,12 38,6 48,12 C58,18 70,32 70,32 C70,32 82,18 92,12 C102,6 112,12 112,24 C112,46 70,68 70,68Z" stroke="${c}" stroke-width="2.5" fill="${c}20"/>
+      <path d="M25,72 C25,72 15,66 15,58 C15,54 19,52 22,55 C25,58 25,63 25,63 C25,63 25,58 28,55 C31,52 35,54 35,58 C35,66 25,72 25,72Z" stroke="${c}" stroke-width="1.8" fill="${c}15" opacity="0.7"/>
+      <path d="M115,72 C115,72 105,66 105,58 C105,54 109,52 112,55 C115,58 115,63 115,63 C115,63 115,58 118,55 C121,52 125,54 125,58 C125,66 115,72 115,72Z" stroke="${c}" stroke-width="1.8" fill="${c}15" opacity="0.7"/>
+    </svg>`,
+
+    2: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M70,15 L74,30 L90,30 L77,40 L82,55 L70,46 L58,55 L63,40 L50,30 L66,30Z" stroke="${c}" stroke-width="2.2" fill="${c}20"/>
+      <path d="M22,28 L25,36 L34,36 L27,42 L30,50 L22,44 L14,50 L17,42 L10,36 L19,36Z" stroke="${c}" stroke-width="1.6" fill="${c}15" opacity="0.65"/>
+      <path d="M118,28 L121,36 L130,36 L123,42 L126,50 L118,44 L110,50 L113,42 L106,36 L115,36Z" stroke="${c}" stroke-width="1.6" fill="${c}15" opacity="0.65"/>
+      <circle cx="45" cy="65" r="2.5" stroke="${c}" stroke-width="1.5" fill="${c}30" opacity="0.5"/>
+      <circle cx="95" cy="65" r="2.5" stroke="${c}" stroke-width="1.5" fill="${c}30" opacity="0.5"/>
+      <circle cx="70" cy="72" r="1.8" stroke="${c}" stroke-width="1.5" fill="${c}30" opacity="0.35"/>
+    </svg>`,
+
+    3: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="70" cy="55" rx="28" ry="14" stroke="${c}" stroke-width="2" fill="${c}15"/>
+      <path d="M55,55 C55,40 60,28 70,22 C80,28 85,40 85,55" stroke="${c}" stroke-width="2" fill="none"/>
+      <path d="M62,38 C58,32 56,26 60,22" stroke="${c}" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <path d="M78,38 C82,32 84,26 80,22" stroke="${c}" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <path d="M25,70 L25,50 C25,50 30,44 35,50 C40,56 45,44 50,50" stroke="${c}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.6"/>
+      <path d="M90,70 L90,50 C90,50 95,44 100,50 C105,56 110,44 115,50 L115,70" stroke="${c}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.6"/>
+    </svg>`,
+
+    4: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="70" cy="28" r="18" stroke="${c}" stroke-width="2.2" fill="${c}20"/>
+      <line x1="70" y1="10" x2="70" y2="2" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="88" y1="16" x2="94" y2="10" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="88" y1="40" x2="94" y2="46" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="52" y1="16" x2="46" y2="10" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="52" y1="40" x2="46" y2="46" stroke="${c}" stroke-width="2" stroke-linecap="round"/>
+      <path d="M50,62 L60,50 L70,58 L80,45 L90,62" stroke="${c}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+      <path d="M30,75 L110,75" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+    </svg>`,
+
+    5: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M70,75 L70,30" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M70,42 C70,42 82,36 88,26 C82,22 74,26 70,32" stroke="${c}" stroke-width="2" fill="${c}20" stroke-linejoin="round"/>
+      <path d="M70,52 C70,52 56,46 50,34 C56,30 64,34 70,42" stroke="${c}" stroke-width="2" fill="${c}20" stroke-linejoin="round"/>
+      <path d="M70,34 C70,34 78,28 70,18 C62,28 70,34 70,34Z" stroke="${c}" stroke-width="2" fill="${c}25" stroke-linejoin="round"/>
+      <ellipse cx="70" cy="76" rx="20" ry="5" stroke="${c}" stroke-width="1.5" fill="${c}15" opacity="0.5"/>
+    </svg>`,
+
+    6: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M45,70 L45,40 C45,40 50,30 55,32 C60,34 60,42 55,44 C52,45 48,43 46,40" stroke="${c}" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.65"/>
+      <path d="M95,70 L95,40 C95,40 90,30 85,32 C80,34 80,42 85,44 C88,45 92,43 94,40" stroke="${c}" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.65"/>
+      <path d="M55,70 L55,52 L60,44 L65,52 L70,42 L75,52 L80,44 L85,52 L85,70" stroke="${c}" stroke-width="2.2" fill="${c}15" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M30,75 L110,75" stroke="${c}" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+    </svg>`,
+
+    7: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20,70 L50,35 L70,55 L90,25 L120,70Z" stroke="${c}" stroke-width="2.2" fill="${c}15" stroke-linejoin="round"/>
+      <circle cx="100" cy="20" r="10" stroke="${c}" stroke-width="2" fill="${c}20"/>
+      <path d="M30,75 L110,75" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+    </svg>`,
+
+    8: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="35" y="18" width="70" height="52" rx="4" stroke="${c}" stroke-width="2.2" fill="${c}15"/>
+      <line x1="70" y1="18" x2="70" y2="70" stroke="${c}" stroke-width="1.5" opacity="0.5"/>
+      <line x1="48" y1="32" x2="66" y2="32" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <line x1="48" y1="40" x2="66" y2="40" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <line x1="48" y1="48" x2="66" y2="48" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <line x1="74" y1="32" x2="92" y2="32" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <line x1="74" y1="40" x2="92" y2="40" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <path d="M70,12 C70,12 66,8 70,4 C74,8 70,12 70,12Z" stroke="${c}" stroke-width="1.8" fill="${c}25"/>
+    </svg>`,
+
+    9: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M70,20 L100,42 L100,75 L40,75 L40,42Z" stroke="${c}" stroke-width="2.2" fill="${c}15" stroke-linejoin="round"/>
+      <path d="M35,45 L70,18 L105,45" stroke="${c}" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="60" y="55" width="20" height="20" rx="2" stroke="${c}" stroke-width="2" fill="${c}20"/>
+      <rect x="46" y="48" width="16" height="14" rx="2" stroke="${c}" stroke-width="1.8" fill="${c}20"/>
+      <circle cx="95" cy="20" r="5" stroke="${c}" stroke-width="1.5" fill="${c}20" opacity="0.6"/>
+    </svg>`,
+
+    10: `<svg viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M45,65 C45,65 35,58 32,48 C30,40 34,35 40,36 C46,37 48,44 48,44 C48,44 52,36 58,36 C64,36 65,44 62,50" stroke="${c}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M95,65 C95,65 105,58 108,48 C110,40 106,35 100,36 C94,37 92,44 92,44 C92,44 88,36 82,36 C76,36 75,44 78,50" stroke="${c}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M62,50 C62,50 65,58 70,62 C75,58 78,50 78,50" stroke="${c}" stroke-width="2.2" fill="${c}20" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40,75 L100,75" stroke="${c}" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+    </svg>`,
+  };
+  return svgs[type] || svgs[1];
+}
+
+// ════════════════════════════════════════
+// QUESTIONS (100 câu)
+// ════════════════════════════════════════
+// Structure: { id, pre, h, suf, level, theme, ill }
+// pre = text before highlight, h = big highlight phrase, suf = text after
+// level = min relationship level (1-7), theme = 1-5, ill = 1-10
+
+const QUESTIONS = [
+  // ── LEVEL 1: Buổi hẹn hò ──────────────────────
+  { id:1,  pre:"Điều gì khiến anh/em mỉm cười",         h:"MỖI SÁNG\nTHỨC DẬY",       suf:"?",                                 level:1, theme:1, ill:1  },
+  { id:2,  pre:"Nếu có thể đi bất kỳ đâu ngay lúc này,", h:"ANH/EM SẼ\nĐI ĐÂU?",      suf:"",                                  level:1, theme:2, ill:7  },
+  { id:3,  pre:"Điều làm anh/em",                        h:"TỰ HÀO NHẤT\nVỀ BẢN THÂN", suf:"là gì?",                            level:1, theme:3, ill:4  },
+  { id:4,  pre:"Bài hát nào anh/em luôn nghe khi",       h:"CẦN ĐƯỢC\nAN ỦI?",         suf:"",                                  level:1, theme:4, ill:8  },
+  { id:5,  pre:"Điều gì tạo nên một",                    h:"BUỔI HẸN HÒ\nHOÀN HẢO",   suf:"theo anh/em?",                      level:1, theme:5, ill:2  },
+  { id:6,  pre:"Kỷ niệm thời thơ ấu nào vẫn",            h:"KHIẾN ANH/EM\nCƯỜI MÃI?",  suf:"",                                  level:1, theme:1, ill:3  },
+  { id:7,  pre:"Nếu cuộc đời là một bộ phim,",           h:"ANH/EM CHỌN\nTHỂ LOẠI GÌ?", suf:"",                                 level:1, theme:2, ill:8  },
+  { id:8,  pre:"Điều gì ở người khác khiến anh/em",      h:"NGƯỠNG MỘ\nNHẤT?",         suf:"",                                  level:1, theme:3, ill:6  },
+  { id:9,  pre:"Sở thích bí mật nào anh/em",             h:"CHƯA KỂ\nAI BIẾT?",        suf:"",                                  level:1, theme:4, ill:5  },
+  { id:10, pre:"Nếu có một siêu năng lực,",              h:"ANH/EM MUỐN\nCÓ GÌ?",      suf:"",                                  level:1, theme:5, ill:2  },
+
+  // ── LEVEL 2: Đang tìm hiểu ──────────────────────
+  { id:11, pre:"Điều gì làm anh/em nhớ mãi về",          h:"KỶ NIỆM\nHỒI CÒN NHỎ",    suf:"bên gia đình?",                     level:2, theme:1, ill:3  },
+  { id:12, pre:"Điều gì tạo nên",                        h:"MỐI QUAN HỆ\nBỀN VỮNG",   suf:"theo anh/em?",                      level:2, theme:2, ill:10 },
+  { id:13, pre:"Nỗi sợ lớn nhất của anh/em",             h:"TRONG CUỘC\nSỐNG",         suf:"là gì?",                            level:2, theme:3, ill:7  },
+  { id:14, pre:"Khoảnh khắc nào trong cuộc đời",         h:"ANH/EM MUỐN\nSỐNG LẠI?",  suf:"",                                  level:2, theme:4, ill:2  },
+  { id:15, pre:"Điều gì người thân không biết",          h:"VỀ ANH/EM",                suf:"?",                                 level:2, theme:5, ill:8  },
+  { id:16, pre:"Anh/em định nghĩa",                      h:"HẠNH PHÚC\nLÀ GÌ?",       suf:"",                                  level:2, theme:1, ill:1  },
+  { id:17, pre:"Nếu nói chuyện với phiên bản",           h:"10 NĂM\nTRƯỚC",           suf:"anh/em sẽ nói gì?",                 level:2, theme:2, ill:9  },
+  { id:18, pre:"Điều gì khiến anh/em cảm thấy",          h:"AN TOÀN\nNHẤT?",          suf:"",                                  level:2, theme:3, ill:5  },
+  { id:19, pre:"Anh/em mơ ước điều gì nhất",             h:"CHO\nTƯƠNG LAI?",          suf:"",                                  level:2, theme:4, ill:4  },
+  { id:20, pre:"Người anh hùng trong cuộc đời anh/em",   h:"LÀ AI?\nTẠI SAO?",        suf:"",                                  level:2, theme:5, ill:6  },
+  { id:21, pre:"Điều gì ở bản thân anh/em",              h:"MUỐN THAY\nĐỔI NHẤT?",    suf:"",                                  level:2, theme:1, ill:3  },
+  { id:22, pre:"Anh/em từng làm điều gì mà",             h:"RẤT HỐI HẬN\nSAU NÀY?",  suf:"",                                  level:2, theme:2, ill:8  },
+  { id:23, pre:"Bài học cuộc sống",                      h:"QUAN TRỌNG\nNHẤT",        suf:"anh/em đã học được?",               level:2, theme:3, ill:8  },
+  { id:24, pre:"Nếu không làm công việc hiện tại,",      h:"ƯỚC MƠ\nNGHỀ NGHIỆP",   suf:"của anh/em là gì?",                 level:2, theme:4, ill:7  },
+  { id:25, pre:"Điều gì khiến anh/em cảm thấy",         h:"THỰC SỰ\nSỐNG?",          suf:"",                                  level:2, theme:5, ill:1  },
+
+  // ── LEVEL 3: Yêu dưới 1 năm ──────────────────────
+  { id:26, pre:"Lần đầu gặp nhau,",                     h:"ANH/EM NGHĨ\nGÌ VỀ NGƯỜI KIA?", suf:"",                             level:3, theme:1, ill:10 },
+  { id:27, pre:"Điều gì ở đối phương khiến anh/em",     h:"QUYẾT ĐỊNH\nYÊU?",         suf:"",                                  level:3, theme:2, ill:1  },
+  { id:28, pre:"Điều anh/em muốn 2 đứa làm cùng nhau", h:"MÀ CHƯA\nTỪNG LÀM?",      suf:"",                                  level:3, theme:3, ill:5  },
+  { id:29, pre:"Nếu có 24 giờ chỉ 2 đứa,",             h:"ANH/EM LÊN\nKẾ HOẠCH GÌ?", suf:"",                                 level:3, theme:4, ill:7  },
+  { id:30, pre:"Anh/em nghĩ gì về",                     h:"BUỔI\nFIRST DATE",          suf:"của chúng mình?",                  level:3, theme:5, ill:2  },
+  { id:31, pre:"Điều gì anh/em thích nhất",             h:"Ở NGƯỜI\nBÊN CẠNH MÌNH?",  suf:"",                                  level:3, theme:1, ill:1  },
+  { id:32, pre:"Khoảnh khắc nào anh/em cảm thấy",      h:"GẦN NHAU\nNHẤT?",          suf:"",                                  level:3, theme:2, ill:10 },
+  { id:33, pre:"Anh/em đã bao giờ phải",                h:"GIẢ VỜ VUI\nKHI BÊN NHAU?", suf:"",                                 level:3, theme:3, ill:3  },
+  { id:34, pre:"Điều gì rất muốn làm cho người kia",    h:"NHƯNG CHƯA\nTHỂ LÀM?",    suf:"",                                  level:3, theme:4, ill:9  },
+  { id:35, pre:"Theo anh/em,",                          h:"TÌNH YÊU\nLÝ TƯỞNG",       suf:"trông như thế nào?",               level:3, theme:5, ill:1  },
+  { id:36, pre:"Điều gì ở mối quan hệ này",             h:"LÀM ANH/EM\nBẤT NGỜ NHẤT?", suf:"",                                level:3, theme:1, ill:6  },
+  { id:37, pre:"Anh/em muốn người kia",                 h:"HIỂU MÌNH\nHƠN Ở ĐÂU?",   suf:"",                                  level:3, theme:2, ill:8  },
+  { id:38, pre:"Nếu chúng ta phải xa cách 3 tháng,",   h:"ANH/EM\nSẼ LÀM GÌ?",       suf:"",                                  level:3, theme:3, ill:7  },
+  { id:39, pre:"Điều gì anh/em muốn nói với người kia", h:"NHƯNG CHƯA\nDÁM NÓI?",    suf:"",                                  level:3, theme:4, ill:3  },
+  { id:40, pre:"Mục tiêu của anh/em",                  h:"CHO\nTÌNH YÊU NÀY",         suf:"là gì?",                           level:3, theme:5, ill:5  },
+
+  // ── LEVEL 4: Yêu trên 1 năm ──────────────────────
+  { id:41, pre:"Điều gì anh/em",                        h:"KHÔNG THỂ\nTHA THỨ",       suf:"cho người còn lại?",               level:4, theme:1, ill:6  },
+  { id:42, pre:"Kể về lần chúng mình",                  h:"LÀM TỔN THƯƠNG\nNHAU",    suf:"— điều gì khiến anh/em day dứt?",  level:4, theme:2, ill:3  },
+  { id:43, pre:"Điểm xấu nào của mình",                 h:"ANH/EM MUỐN\nĐƯỢC CẢM THÔNG?", suf:"",                            level:4, theme:3, ill:8  },
+  { id:44, pre:"Khi chúng ta cãi nhau, bên ngoài em cư xử...", h:"NHƯNG BÊN TRONG\nEM NGHĨ...", suf:"(điền vào chỗ trống)",  level:4, theme:4, ill:3  },
+  { id:45, pre:"Từ khi quen nhau,",                     h:"MÌNH ĐÃ BỎ\nĐƯỢC TẬT XẤU GÌ?", suf:"",                           level:4, theme:5, ill:6  },
+  { id:46, pre:"Anh/em đã bao giờ",                     h:"SO SÁNH\nNGƯỜI KIA",      suf:"với ai khác chưa?",                level:4, theme:1, ill:2  },
+  { id:47, pre:"Điều gì đã từng khiến",                 h:"MỐI QUAN HỆ\nSUÝT ĐỔ VỠ?", suf:"",                                level:4, theme:2, ill:3  },
+  { id:48, pre:"Trong tất cả nơi mình đã đi,",          h:"KỶ NIỆM\nĐẸP NHẤT",       suf:"là ở đâu?",                        level:4, theme:3, ill:7  },
+  { id:49, pre:"Anh/em muốn nghỉ hưu năm bao nhiêu tuổi?", h:"KHI ĐÓ HAI ĐỨA\nSẼ LÀM GÌ?", suf:"",                        level:4, theme:4, ill:9  },
+  { id:50, pre:"Đây là thử thách:",                     h:"CÙNG CHỌN\nMỘT ĐIỂM ĐẾN",  suf:"cho chuyến đi tương lai của đôi ta!", level:4, theme:5, ill:7 },
+  { id:51, pre:"Điều gì anh/em",                        h:"TIN TƯỞNG NHẤT\nVÀO NGƯỜI KIA?", suf:"",                           level:4, theme:1, ill:10 },
+  { id:52, pre:"Khi nhìn thấy người kia khóc lần đầu,", h:"ANH/EM CẢM\nTHẤY THẾ NÀO?", suf:"",                              level:4, theme:2, ill:1  },
+  { id:53, pre:"Nếu một mai phải chia tay,",            h:"ANH/EM SẼ\nNÓI GÌ",       suf:"với người kia?",                   level:4, theme:3, ill:3  },
+  { id:54, pre:"Đã bao giờ anh/em nghĩ đến",           h:"ĐOẠN KẾT\nCỦA TÌNH YÊU ĐÔI TA?", suf:"",                          level:4, theme:4, ill:2  },
+  { id:55, pre:"Thử thách: Trong 6 phút,",              h:"KỂ LẠI CÂU\nCHUYỆN TÌNH",  suf:"của chúng mình với thật nhiều kỷ niệm!", level:4, theme:5, ill:1 },
+
+  // ── LEVEL 5: Mới kết hôn ──────────────────────
+  { id:56, pre:"Nếu 2 đứa về chung một nhà,",          h:"ĐIỀU HẠNH PHÚC\nNHẤT",     suf:"anh/em nghĩ đến là gì?",          level:5, theme:1, ill:9  },
+  { id:57, pre:"Anh/em thích con mình là trai hay gái?", h:"TÊN CON\nSẼ LÀ GÌ?",     suf:"",                                  level:5, theme:2, ill:5  },
+  { id:58, pre:"Điều anh/em luôn mong ước",             h:"KHI LÀ\nMỘT GIA ĐÌNH",    suf:"là gì?",                           level:5, theme:3, ill:9  },
+  { id:59, pre:"Điều gì trong cách được nuôi dạy",      h:"ANH/EM MUỐN\nTRUYỀN LẠI",  suf:"cho con?",                        level:5, theme:4, ill:5  },
+  { id:60, pre:"Điều gì từ gia đình mình",              h:"ANH/EM QUYẾT\nKHÔNG LẶP LẠI", suf:"khi nuôi dạy con?",            level:5, theme:5, ill:6  },
+  { id:61, pre:"Anh/em có muốn",                       h:"SỐNG THỬ\nVỚI NHAU KHÔNG?", suf:"Tại sao?",                         level:5, theme:1, ill:9  },
+  { id:62, pre:"Điều anh/em muốn đối phương thay đổi", h:"KHI 2 NGƯỜI\nTHÂN MẬT",    suf:"?",                                 level:5, theme:2, ill:1  },
+  { id:63, pre:"Điều anh/em thích nhất ở người kia",   h:"KHI GẦN\nGỮI NHAU",        suf:"?",                                 level:5, theme:3, ill:1  },
+  { id:64, pre:"Có điều gì khiến anh/em còn",          h:"NGẠI KHI\nGẦN GỮI",        suf:"nhau không?",                      level:5, theme:4, ill:8  },
+  { id:65, pre:"Đâu là không gian anh/em cho là",      h:"LÝ TƯỞNG\nNHẤT",           suf:"để thân mật?",                     level:5, theme:5, ill:7  },
+  { id:66, pre:"Nếu gia đình không tin vào mối quan hệ này,", h:"ANH/EM\nSẼ LÀM GÌ?", suf:"",                                level:5, theme:1, ill:9  },
+  { id:67, pre:"Điều gì khiến anh/em cảm thấy",        h:"ĐƯỢC YÊU THƯƠNG\nTRONG HÔN NHÂN?", suf:"",                         level:5, theme:2, ill:10 },
+  { id:68, pre:"Anh/em muốn xây dựng",                 h:"TỔ ẤM\nNHƯ THẾ NÀO?",     suf:"Ở đâu?",                           level:5, theme:3, ill:9  },
+  { id:69, pre:"Khoảnh khắc nào trong",                h:"ĐÁM CƯỚI\nNHỚ MÃI",        suf:"?",                                 level:5, theme:4, ill:2  },
+  { id:70, pre:"Điều anh/em muốn",                     h:"HỌC HỎI\nTỪ NGƯỜI KIA",    suf:"trong hôn nhân?",                  level:5, theme:5, ill:8  },
+
+  // ── LEVEL 6: Kết hôn trên 1 năm ──────────────────────
+  { id:71, pre:"Trong gia đình, sự ra đi của ai",      h:"ĐAU KHỔ\nNHẤT?",          suf:"Tại sao?",                         level:6, theme:1, ill:6  },
+  { id:72, pre:"Nếu được thay đổi một điều",            h:"ĐÃ XẢY RA\nTRONG GIA ĐÌNH", suf:"anh/em sẽ chọn gì?",            level:6, theme:2, ill:3  },
+  { id:73, pre:"Anh/em có quan trọng về",              h:"\"LẦN ĐẦU\"\nCỦA NHAU",     suf:"không? Tại sao?",                 level:6, theme:3, ill:10 },
+  { id:74, pre:"Điều anh/em nhất định phải làm",       h:"TRƯỚC KHI\nGIÀ ĐI",        suf:"?",                                 level:6, theme:4, ill:7  },
+  { id:75, pre:"Hãy kể lại",                           h:"GIẤC MƠ\nKỲ LẠ NHẤT",      suf:"gần đây — miêu tả đủ 5 giác quan!", level:6, theme:5, ill:4 },
+  { id:76, pre:"Khi nào anh/em cảm thấy",             h:"CÔ ĐƠN NHẤT\nTRONG MỐI QUAN HỆ?", suf:"",                          level:6, theme:1, ill:3  },
+  { id:77, pre:"Khi nào anh/em cảm thấy",             h:"KẾT NỐI\nSÂU SẮC NHẤT",    suf:"với người kia?",                   level:6, theme:2, ill:10 },
+  { id:78, pre:"Điều gì anh/em muốn thay đổi",        h:"TRONG CUỘC SỐNG\nHÀNG NGÀY",suf:"của hai vợ chồng?",               level:6, theme:3, ill:5  },
+  { id:79, pre:"Anh/em đã bao giờ cảm thấy mình",     h:"ĐANG\n\"ĐÓNG KỊCH\"",      suf:"trong mối quan hệ chưa?",          level:6, theme:4, ill:8  },
+  { id:80, pre:"Điều gì khiến anh/em vẫn",            h:"CHỌN NGƯỜI\nKIA MỖI NGÀY?", suf:"",                                 level:6, theme:5, ill:1  },
+  { id:81, pre:"Nếu có thể tặng người kia",            h:"MỘT TRẢI NGHIỆM",          suf:"đó sẽ là gì?",                     level:6, theme:1, ill:7  },
+  { id:82, pre:"Điều gì anh/em ước mình",             h:"LÀM KHÁC ĐI",              suf:"trong cuộc hôn nhân này?",         level:6, theme:2, ill:6  },
+  { id:83, pre:"Anh/em cảm thấy thế nào khi",         h:"NGƯỜI KIA\nTHÀNH CÔNG HƠN MÌNH?", suf:"",                          level:6, theme:3, ill:4  },
+  { id:84, pre:"Điều gì khiến anh/em",                h:"CƯỜI NHIỀU\nNHẤT",          suf:"trong cuộc sống hàng ngày?",       level:6, theme:4, ill:3  },
+  { id:85, pre:"Nếu phải chọn giữa sự nghiệp và gia đình,", h:"ANH/EM\nSẼ CHỌN GÌ?", suf:"",                                level:6, theme:5, ill:9  },
+
+  // ── LEVEL 7: Kết hôn trên 5 năm ──────────────────────
+  { id:86, pre:"Nhìn lại hành trình chúng mình,",     h:"ĐIỀU GÌ\nTỰ HÀO NHẤT?",    suf:"",                                  level:7, theme:1, ill:7  },
+  { id:87, pre:"Điều gì trong mối quan hệ này",       h:"ĐÃ THAY ĐỔI\nANH/EM",      suf:"nhiều nhất?",                      level:7, theme:2, ill:5  },
+  { id:88, pre:"Anh/em muốn con cái",                 h:"NHỚ ĐẾN\nCHA/MẸ",          suf:"mình như thế nào?",                level:7, theme:3, ill:9  },
+  { id:89, pre:"Điều gì anh/em muốn",                 h:"CÙNG NHAU\nTẠO RA",        suf:"trước khi già?",                   level:7, theme:4, ill:6  },
+  { id:90, pre:"Nếu viết thư cho mình",               h:"20 NĂM\nSAU",              suf:"anh/em sẽ viết gì?",               level:7, theme:5, ill:8  },
+  { id:91, pre:"Khoảnh khắc nào trong hôn nhân",      h:"KHIẾN ANH/EM\nKHÓC VÌ HẠNH PHÚC?", suf:"",                        level:7, theme:1, ill:1  },
+  { id:92, pre:"Điều gì anh/em muốn",                 h:"ĐƯỢC NGƯỜI KIA\nTHA THỨ?", suf:"",                                  level:7, theme:2, ill:3  },
+  { id:93, pre:"Nếu phải sống lại từ đầu,",           h:"ANH/EM CÓ\nCHỌN NGƯỜI KIA KHÔNG?", suf:"",                         level:7, theme:3, ill:10 },
+  { id:94, pre:"Điều anh/em muốn nói với người kia",  h:"MÀ CHƯA BAO\nGIỜ NÓI ĐỦ", suf:"?",                                 level:7, theme:4, ill:3  },
+  { id:95, pre:"Anh/em muốn chúng ta được nhớ đến",   h:"NHƯ MỘT CẶP\nĐÔI THẾ NÀO?", suf:"",                               level:7, theme:5, ill:10 },
+  { id:96, pre:"Điều gì trong cuộc sống hàng ngày",   h:"ANH/EM VẪN\nYÊU THÍCH",    suf:"sau bao nhiêu năm bên nhau?",      level:7, theme:1, ill:5  },
+  { id:97, pre:"Nếu tặng con cái",                    h:"BÀI HỌC\nVỀ TÌNH YÊU",    suf:"đó là bài học gì?",                level:7, theme:2, ill:8  },
+  { id:98, pre:"Khoảnh khắc nào anh/em chắc chắn:",  h:"\"ĐÂY LÀ NGƯỜI\nMÌNH MUỐN GIÀ ĐI CÙNG\"", suf:"?",                level:7, theme:3, ill:10 },
+  { id:99, pre:"Điều gì làm anh/em chắc chắn rằng",  h:"ĐÂY LÀ MỐI TÌNH\nĐÚNG ĐẮN NHẤT?", suf:"",                         level:7, theme:4, ill:1  },
+  { id:100,pre:"Hãy nói với người kia",               h:"3 ĐIỀU\nANH/EM YÊU HỌ",   suf:"— ngay lúc này!",                   level:7, theme:5, ill:1  },
+];
+
+// ════════════════════════════════════════
+// GAME STATE
+// ════════════════════════════════════════
+let selectedLevel = 1;
+let currentCards = [];
+let currentIndex = 0;
+
+// ════════════════════════════════════════
+// BUILD LEVEL LIST
+// ════════════════════════════════════════
+function buildLevelList() {
+  const container = document.getElementById('level-list');
+  container.innerHTML = '';
+  LEVELS.forEach(lv => {
+    const count = QUESTIONS.filter(q => q.level <= lv.id).length;
+    const btn = document.createElement('button');
+    btn.className = 'level-btn';
+    btn.innerHTML = `
+      <div class="level-icon" style="background:${lv.bg}">${lv.emoji}</div>
+      <div class="level-info">
+        <div class="level-name">${lv.name}</div>
+        <div class="level-desc">${lv.desc}</div>
+      </div>
+      <div class="level-count" style="color:${lv.color}">${count} câu</div>
+    `;
+    btn.onclick = () => startGame(lv.id);
+    container.appendChild(btn);
+  });
+}
+
+// ════════════════════════════════════════
+// GAME LOGIC
+// ════════════════════════════════════════
+function startGame(level) {
+  selectedLevel = level;
+  currentCards = QUESTIONS.filter(q => q.level <= level);
+  // Fisher-Yates shuffle
+  for (let i = currentCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+  }
+  currentIndex = 0;
+  // Show sparkle popup first, closeSparkle() will start the game
+  showSparkle(level);
+}
+
+function renderCard(direction) {
+  const container = document.getElementById('card-container');
+  const progressText = document.getElementById('progress-text');
+  const progressBar = document.getElementById('progress-bar');
+  const header = document.getElementById('game-header');
+
+  if (currentIndex >= currentCards.length) {
+    showScreen('screen-end');
+    return;
+  }
+
+  const q = currentCards[currentIndex];
+  const t = THEMES[q.theme];
+  const total = currentCards.length;
+  const current = currentIndex + 1;
+  const pct = Math.round((currentIndex / total) * 100);
+
+  progressText.textContent = `${current} / ${total}`;
+  progressText.style.color = t.highlight;
+  progressBar.style.width = pct + '%';
+  progressBar.style.background = t.border;
+
+  document.getElementById('btn-end-game').style.background = t.bg;
+  document.getElementById('btn-end-game').style.color = t.text;
+
+  document.getElementById('screen-game').style.background = t.bg;
+  header.style.background = t.bg;
+
+  const svgStr = getSVG(q.ill, t.border);
+  const highlightLines = q.h.split('\n');
+
+  const card = document.createElement('div');
+  card.className = 'q-card ' + (direction === 'left' ? 'slide-in-left' : 'slide-in');
+  card.style.background = t.border;
+
+  card.innerHTML = `
+    <div class="q-card-inner">
+      <div class="card-number" style="color:${t.text}">${LEVELS[selectedLevel-1].emoji} ${LEVELS[selectedLevel-1].name.toUpperCase()}</div>
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;">
+        ${q.pre ? `<div class="card-question-text" style="color:#666">${q.pre}</div>` : ''}
+        <div class="card-highlight" style="color:${t.highlight}">${highlightLines.join('<br>')}</div>
+        ${q.suf ? `<div class="card-suffix" style="color:#666">${q.suf}</div>` : ''}
+      </div>
+      <div class="card-illustration">${svgStr}</div>
+      <div class="card-tap-hint" style="color:${t.text}">Tap để tiếp tục →</div>
+    </div>
+  `;
+
+  container.innerHTML = '';
+  container.appendChild(card);
+}
+
+function nextCard() {
+  currentIndex++;
+  renderCard('right');
+}
+
+function restartGame() {
+  currentCards = QUESTIONS.filter(q => q.level <= selectedLevel);
+  for (let i = currentCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+  }
+  currentIndex = 0;
+  showScreen('screen-game');
+  renderCard();
+}
+
+function confirmEnd() {
+  if (confirm('Kết thúc trò chơi?')) {
+    showScreen('screen-end');
+  }
+}
+
+// ════════════════════════════════════════
+// SCREEN NAVIGATION
+// ════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ════════════════════════════════════════
+// WELCOME POPUP
+// ════════════════════════════════════════
+let pendingLevelScreen = false;
+
+function clearError(fieldId) {
+  document.getElementById(fieldId).classList.remove('error');
+  const errMap = { 'user-name': 'err-name', 'user-email': 'err-email' };
+  document.getElementById(errMap[fieldId]).classList.remove('show');
+}
+
+function showError(fieldId, errId) {
+  document.getElementById(fieldId).classList.add('error');
+  document.getElementById(errId).classList.add('show');
+}
+
+async function submitAndStart() {
+  const nameVal = document.getElementById('user-name').value.trim();
+  const emailVal = document.getElementById('user-email').value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  let valid = true;
+  if (!nameVal) { showError('user-name', 'err-name'); valid = false; }
+  if (!emailVal || !emailRegex.test(emailVal)) { showError('user-email', 'err-email'); valid = false; }
+  if (!valid) return;
+
+  // Loading state
+  const btn = document.getElementById('btn-submit');
+  btn.textContent = 'Đang lưu...';
+  btn.classList.add('btn-loading');
+  btn.disabled = true;
+
+  // Gửi data lên Wix Data Collections (trannhatvu.vn)
+  try {
+    await fetch('https://www.wixapis.com/wix-data/v2/items', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'IST.eyJraWQiOiJQb3pIX2FDMiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1wiaWRcIjpcIjRhOTVhN2I3LTc0MDctNDc5YS05YmZmLTQ5MDcyNjg0YjMxOFwiLFwiaWRlbnRpdHlcIjp7XCJ0eXBlXCI6XCJhcHBsaWNhdGlvblwiLFwiaWRcIjpcImM5MTZkZGYxLTcyNTUtNDkyNi1iNDM5LWJkMDI1YjMxZTViNFwifSxcInRlbmFudFwiOntcInR5cGVcIjpcImFjY291bnRcIixcImlkXCI6XCJlMTVmMTQ2ZS1kNzFkLTQzN2EtODljNS1iZmFmMTBlMjg1ZGRcIn19IiwiaWF0IjoxNzczOTA5NDc1fQ.OoUc1HhLIkwW90eijWP-gmRKqgUu7stfFePpUNg25GC4EklYfshrL-4-zimv3sPMf3wOrubxWdptUnwORBONX4fON9Qh0cLjXvHsDPzVvUt7wlgrh_FLZ-Q5_t_9qF9f-VVU4EO1UVi5Hc4_zkcUHSF8yXJ3maioN60IZHoq9PNI8lJ_hRK6qv1i0bbnDLIpbPyWrd0IAFhE6EwvqpeKTSagwffuUhOepp0nnwHavFn6mYsgVuLtpdd0Q4PTkT9QvPBeCf5F9AGb7v_ksWU29syqjGRtvbbFkPctP2BtU_Bt75HTCf4oOZI3YjFkArQauSW8AofaFpDXai63aIGAWQ',
+        'wix-site-id': 'aabda58e-556c-4fa7-9974-e869e39a33f9',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dataCollectionId: 'NgonNguTinhYeu',
+        dataItem: {
+          data: {
+            name: nameVal,
+            email: emailVal,
+            submittedAt: new Date().toISOString(),
+            source: 'Ngôn Ngữ Tình Yêu App',
+          }
+        }
+      })
+    });
+  } catch(e) {
+    // Không chặn người dùng nếu API lỗi — vẫn tiếp tục vào game
+    console.warn('Wix data save skipped:', e);
+  }
+
+  // Reset button
+  btn.textContent = 'Bắt đầu thôi →';
+  btn.classList.remove('btn-loading');
+  btn.disabled = false;
+
+  // Hiện welcome popup
+  document.getElementById('welcome-name').textContent = `Xin chào, ${nameVal}! 🌸`;
+
+  const box = document.getElementById('welcome-box');
+  box.querySelectorAll('.welcome-particle').forEach(p => p.remove());
+  const glitters = ['✨','💕','🌸','💫','⭐','🌷','💖','✦'];
+  for (let i = 0; i < 16; i++) {
+    const p = document.createElement('div');
+    p.className = 'welcome-particle';
+    p.textContent = glitters[Math.floor(Math.random() * glitters.length)];
+    p.style.left = Math.random() * 92 + 4 + '%';
+    p.style.bottom = '-12px';
+    p.style.fontSize = (12 + Math.random() * 14) + 'px';
+    p.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+    p.style.animationDelay = (Math.random() * 2.5) + 's';
+    box.appendChild(p);
+  }
+
+  pendingLevelScreen = true;
+  document.getElementById('welcome-overlay').classList.remove('hidden');
+}
+
+function closeWelcome() {
+  document.getElementById('welcome-overlay').classList.add('hidden');
+  if (pendingLevelScreen) {
+    pendingLevelScreen = false;
+    showScreen('screen-level');
+  }
+}
+
+// ════════════════════════════════════════
+// YOUTUBE MUSIC
+// ════════════════════════════════════════
+let ytPlayer = null;
+let musicPlaying = false;
+let ytReady = false;
+
+// Load YouTube IFrame API
+(function(){
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+})();
+
+window.onYouTubeIframeAPIReady = function() {
+  ytPlayer = new YT.Player('yt-player', {
+    height: '1',
+    width: '1',
+    videoId: 'hbuB3LZF1Ps',
+    playerVars: {
+      autoplay: 0,
+      loop: 1,
+      playlist: 'hbuB3LZF1Ps',
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      modestbranding: 1,
+      rel: 0,
+    },
+    events: {
+      onReady: function() { ytReady = true; },
+      onStateChange: function(e) {
+        if (e.data === YT.PlayerState.PLAYING) {
+          musicPlaying = true;
+          document.getElementById('music-btn').textContent = '🎵';
+        } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+          musicPlaying = false;
+          document.getElementById('music-btn').textContent = '🔇';
+        }
+      }
+    }
+  });
+};
+
+function startMusic() {
+  document.getElementById('music-btn').style.display = 'flex';
+  if (ytReady && ytPlayer) {
+    ytPlayer.setVolume(60);
+    ytPlayer.playVideo();
+    musicPlaying = true;
+    document.getElementById('music-btn').textContent = '🎵';
+  } else {
+    // Wait until ready
+    const wait = setInterval(() => {
+      if (ytReady && ytPlayer) {
+        clearInterval(wait);
+        ytPlayer.setVolume(60);
+        ytPlayer.playVideo();
+        musicPlaying = true;
+        document.getElementById('music-btn').textContent = '🎵';
+      }
+    }, 300);
+  }
+}
+
+function toggleMusic() {
+  if (!ytPlayer) return;
+  if (musicPlaying) {
+    ytPlayer.pauseVideo();
+    document.getElementById('music-btn').textContent = '🔇';
+    musicPlaying = false;
+  } else {
+    ytPlayer.playVideo();
+    document.getElementById('music-btn').textContent = '🎵';
+    musicPlaying = true;
+  }
+}
+
+// ════════════════════════════════════════
+// SPARKLE POPUP
+// ════════════════════════════════════════
+const SPARKLE_MESSAGES = [
+  { title: 'Chúc hai người\nmột cuộc chơi thật ấm!', msg: 'Hôm nay, chỉ cần nói thật — không có câu trả lời nào sai cả. Tình yêu đẹp nhất là tình yêu được hiểu nhau thêm mỗi ngày. 🌸' },
+  { title: 'Sẵn sàng chưa,\nhai người ơi?', msg: 'Mỗi câu hỏi là một cánh cửa nhỏ. Hãy cùng nhau mở ra và khám phá điều kỳ diệu bên trong nhé! ✨' },
+  { title: 'Trái tim mở,\ncâu chuyện mới!', msg: 'Đừng vội vàng — hãy lắng nghe nhau thật chậm. Vì chính những khoảnh khắc nhỏ bé như thế này mới làm nên tình yêu bền lâu. 💌' },
+  { title: 'Giờ là\nthời gian của hai người!', msg: 'Điện thoại xuống, mắt nhìn nhau, và bắt đầu thôi. Thế giới có thể chờ — nhưng khoảnh khắc này thì không. 🕯️' },
+  { title: 'Yêu là\nhiểu nhau hơn mỗi ngày!', msg: 'Chúc anh và em có những cuộc trò chuyện làm tim mình ấm hơn một chút, và gần nhau hơn một chút. 🫶' },
+];
+
+const SPARKLE_PARTICLES = ['✨','💕','🌸','⭐','💫','🌷','💖','✦'];
+
+function showSparkle(levelId) {
+  const overlay = document.getElementById('sparkle-overlay');
+  const box = document.getElementById('sparkle-box');
+  const lv = LEVELS.find(l => l.id === levelId);
+  const msg = SPARKLE_MESSAGES[Math.floor(Math.random() * SPARKLE_MESSAGES.length)];
+
+  document.getElementById('sparkle-title').textContent = `${lv.emoji} ${msg.title}`;
+  document.getElementById('sparkle-msg').textContent = `Cấp độ: ${lv.name}\n\n${msg.msg}`;
+
+  // clear old particles
+  box.querySelectorAll('.sparkle-particle').forEach(p => p.remove());
+
+  // add sparkle particles
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('div');
+    p.className = 'sparkle-particle';
+    p.textContent = SPARKLE_PARTICLES[Math.floor(Math.random() * SPARKLE_PARTICLES.length)];
+    p.style.left = Math.random() * 90 + 5 + '%';
+    p.style.bottom = '-10px';
+    p.style.fontSize = (12 + Math.random() * 16) + 'px';
+    p.style.animationDuration = (2 + Math.random() * 3) + 's';
+    p.style.animationDelay = (Math.random() * 2) + 's';
+    box.appendChild(p);
+  }
+
+  overlay.classList.remove('hidden');
+}
+
+function closeSparkle() {
+  document.getElementById('sparkle-overlay').classList.add('hidden');
+  // actually start game (currentCards already set)
+  showScreen('screen-game');
+  renderCard();
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+buildLevelList();
+</script>
+</body>
+</html>
