@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ngôn Ngữ Tình Yêu by Harry Chen</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -181,17 +181,18 @@ html, body {
   50%      { transform: scale(1.35); opacity:.75; }
 }
 
-/* Tiêu đề — Lora serif mềm mại */
+/* Tiêu đề — Pacifico, căn giữa */
 .splash-title {
-  font-family: 'Lora', Georgia, serif;
-  font-size: clamp(40px, 8vw, 72px);
-  font-weight: 700;
-  font-style: italic;
-  line-height: 1.1;
-  color: #A83050;
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(40px, 7.5vw, 72px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #C04060;
   margin-bottom: 24px;
-  letter-spacing: -0.3px;
-  text-shadow: 0 2px 20px rgba(168,48,80,0.1);
+  letter-spacing: 0.5px;
+  text-shadow: 0 3px 24px rgba(192,64,96,0.18), 0 1px 0 rgba(255,255,255,0.7);
+  text-align: center;
+  width: 100%;
 }
 
 /* Mô tả */
@@ -230,9 +231,9 @@ html, body {
   box-shadow: 0 4px 20px rgba(200,80,100,0.07);
 }
 .stat-num {
-  font-family: 'Lora', Georgia, serif;
-  font-size: clamp(26px, 5vw, 40px);
-  font-weight: 700;
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(24px, 5vw, 38px);
+  font-weight: 400;
   color: #D04060;
   line-height: 1;
   display: block;
@@ -701,19 +702,21 @@ html, body {
   100% { transform: translateY(-180px) rotate(360deg); opacity: 0; }
 }
 
-/* ── Swirl card heading dùng Lora ── */
+/* ── Swirl card heading dùng Pacifico ── */
 .swirl-card h2 {
-  font-family: 'Lora', Georgia, serif;
-  font-style: italic;
+  font-family: 'Pacifico', cursive;
+  font-style: normal;
+  font-size: 34px;
+  line-height: 1.2;
 }
 
 /* ── Responsive PC (≥768px) ── */
 @media (min-width: 768px) {
   .swirl-card { max-width: 500px; padding: 40px 44px; }
-  .swirl-card h2 { font-size: 46px; }
+  .swirl-card h2 { font-size: 42px; }
   .swirl-card p { font-size: 16px; }
   .level-header { padding: 52px 0 24px; }
-  .level-header h2 { font-size: 40px; font-family: 'Lora', Georgia, serif; font-style: italic; }
+  .level-header h2 { font-size: 38px; font-family: 'Pacifico', cursive; }
   .level-list { max-width: 560px; width: 100%; padding: 0 0 52px; }
   .level-btn { padding: 18px 24px; }
   .level-name { font-size: 16px; }
@@ -727,24 +730,57 @@ html, body {
   #screen-game { overflow: hidden; }
 }
 
-/* ── Responsive PC lớn (≥1200px): splash 2 cột ── */
+/* ── Responsive PC lớn (≥1200px) ── */
 @media (min-width: 1200px) {
   .splash-content {
-    max-width: 960px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    max-width: 860px;
+    padding: 60px 80px 60px;
+    text-align: center;
     align-items: center;
-    gap: 0 60px;
-    text-align: left;
   }
-  .splash-badge { align-self: flex-start; }
-  .splash-title { font-size: 76px; width: 100%; }
-  .splash-left { flex: 1; min-width: 360px; }
-  .splash-right { flex: 1; min-width: 300px; }
-  .splash-btn-main, .splash-btn-sec { max-width: 100%; }
-  .splash-stats { gap: 14px; }
-  .stat-box { padding: 22px 10px 18px; }
+  .splash-title { font-size: 72px; }
+  .splash-desc { font-size: 17px; max-width: 600px; }
+  .splash-stats { gap: 16px; }
+  .stat-box { padding: 24px 12px 20px; }
+  .splash-btn-main, .splash-btn-sec { max-width: 480px; }
+}
+
+/* ══════════════════════════════════════
+   BACKGROUND DECO ILLUSTRATIONS
+══════════════════════════════════════ */
+.bg-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+}
+.bg-deco.float {
+  animation: floatDeco 6s ease-in-out infinite;
+}
+.bg-deco.float-slow {
+  animation: floatDeco 9s ease-in-out infinite reverse;
+}
+.bg-deco.float-med {
+  animation: floatDeco 7s ease-in-out infinite 1.5s;
+}
+@keyframes floatDeco {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-14px) rotate(4deg); }
+}
+
+/* Deco cho card-question highlight font */
+.card-highlight {
+  font-family: 'Pacifico', cursive;
+}
+
+/* level header title */
+.level-header h2 {
+  font-family: 'Pacifico', cursive;
+}
+
+/* End screen heading */
+.end-inner h2 {
+  font-family: 'Pacifico', cursive;
 }
 
 /* ── Slide animation ── */
@@ -792,10 +828,137 @@ html, body {
 
 <!-- ══════════ SPLASH ══════════ -->
 <div class="screen active" id="screen-splash">
-  <!-- Bokeh pastel blobs -->
-  <div class="splash-bokeh" style="width:280px;height:280px;background:rgba(255,180,160,0.5);top:-80px;right:-80px;"></div>
-  <div class="splash-bokeh" style="width:220px;height:220px;background:rgba(255,160,190,0.45);bottom:60px;left:-80px;"></div>
-  <div class="splash-bokeh" style="width:160px;height:160px;background:rgba(255,200,140,0.35);top:45%;right:-40px;"></div>
+  <!-- Bokeh blobs -->
+  <div class="splash-bokeh" style="width:380px;height:380px;background:rgba(255,160,140,0.45);top:-120px;right:-120px;"></div>
+  <div class="splash-bokeh" style="width:300px;height:300px;background:rgba(255,140,180,0.38);bottom:-60px;left:-120px;"></div>
+  <div class="splash-bokeh" style="width:200px;height:200px;background:rgba(255,210,130,0.35);top:40%;right:-60px;"></div>
+  <div class="splash-bokeh" style="width:150px;height:150px;background:rgba(255,180,210,0.3);top:55%;left:-40px;"></div>
+
+  <!-- ❶ Đôi tình nhân ngồi dưới trăng – góc dưới phải -->
+  <svg class="bg-deco float-slow" style="bottom:0;right:0;width:220px;opacity:0.28;" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Trăng lưỡi liềm -->
+    <path d="M160,30 C175,18 192,22 198,38 C185,32 170,36 165,48 C155,38 148,40 160,30Z" fill="#FFD97D"/>
+    <!-- Ngôi sao nhỏ -->
+    <circle cx="140" cy="20" r="3" fill="#FFD97D" opacity="0.7"/>
+    <circle cx="200" cy="60" r="2" fill="#FFD97D" opacity="0.6"/>
+    <circle cx="120" cy="50" r="2.5" fill="#FFE9A0" opacity="0.5"/>
+    <!-- Thân cây -->
+    <rect x="108" y="110" width="8" height="60" rx="4" fill="#C97B4B"/>
+    <!-- Lá cây -->
+    <ellipse cx="112" cy="100" rx="28" ry="22" fill="#7DCB7D" opacity="0.85"/>
+    <ellipse cx="95" cy="112" rx="18" ry="14" fill="#5BB85B" opacity="0.7"/>
+    <ellipse cx="130" cy="112" rx="18" ry="14" fill="#5BB85B" opacity="0.7"/>
+    <!-- Ghế đá -->
+    <rect x="60" y="155" width="100" height="10" rx="5" fill="#D4A0C0"/>
+    <rect x="68" y="165" width="10" height="18" rx="3" fill="#C08090"/>
+    <rect x="142" y="165" width="10" height="18" rx="3" fill="#C08090"/>
+    <!-- Nhân vật nữ -->
+    <circle cx="88" cy="138" r="11" fill="#FFD4BA"/>
+    <path d="M78,138 C76,128 80,122 88,120 C96,122 100,128 98,138" fill="#E8637C"/>
+    <path d="M80,137 C75,150 72,165 70,175" stroke="#E8637C" stroke-width="4" stroke-linecap="round"/>
+    <path d="M96,137 C101,150 104,165 106,175" stroke="#E8637C" stroke-width="4" stroke-linecap="round"/>
+    <!-- Tóc nữ -->
+    <path d="M78,132 C74,125 78,115 88,113 C98,115 102,125 98,132" fill="#6B3D2E"/>
+    <path d="M78,132 C74,145 74,158 76,170" stroke="#6B3D2E" stroke-width="3" stroke-linecap="round"/>
+    <!-- Nhân vật nam -->
+    <circle cx="133" cy="136" r="11" fill="#FFD4BA"/>
+    <path d="M123,136 C121,126 125,120 133,118 C141,120 145,126 143,136" fill="#5B8DD9"/>
+    <path d="M125,135 C120,148 117,163 115,173" stroke="#5B8DD9" stroke-width="4" stroke-linecap="round"/>
+    <path d="M141,135 C146,148 149,163 151,173" stroke="#5B8DD9" stroke-width="4" stroke-linecap="round"/>
+    <!-- Tóc nam -->
+    <path d="M124,128 C122,120 127,113 133,112 C139,113 144,120 142,128" fill="#3D2010"/>
+    <!-- Tay nắm nhau -->
+    <path d="M98,155 C108,152 118,152 128,155" stroke="#E8A0B0" stroke-width="3" stroke-linecap="round"/>
+    <!-- Tim bay lên -->
+    <path d="M108,105 C108,101 112,98 116,101 C120,98 124,101 124,105 C124,110 116,116 116,116 C116,116 108,110 108,105Z" fill="#E8637C" opacity="0.85"/>
+    <path d="M100,90 C100,87 103,85 106,87 C109,85 112,87 112,90 C112,93 106,97 106,97 C106,97 100,93 100,90Z" fill="#F4A7B9" opacity="0.65"/>
+    <path d="M118,82 C118,80 120,79 122,80 C124,79 126,80 126,82 C126,84 122,87 122,87 C122,87 118,84 118,82Z" fill="#FFB3C6" opacity="0.5"/>
+  </svg>
+
+  <!-- ❷ Bó hoa hồng – góc trên phải -->
+  <svg class="bg-deco float" style="top:10px;right:10px;width:130px;opacity:0.26;" viewBox="0 0 130 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cành -->
+    <path d="M65,160 C65,140 60,120 55,100 C50,80 52,60 65,45" stroke="#6BBF6B" stroke-width="4" stroke-linecap="round"/>
+    <path d="M65,120 C80,110 90,95 88,80" stroke="#6BBF6B" stroke-width="3" stroke-linecap="round"/>
+    <path d="M65,100 C50,90 42,75 45,60" stroke="#6BBF6B" stroke-width="3" stroke-linecap="round"/>
+    <!-- Lá -->
+    <ellipse cx="80" cy="100" rx="14" ry="8" fill="#7DCB7D" transform="rotate(-30 80 100)"/>
+    <ellipse cx="50" cy="88" rx="14" ry="8" fill="#5BB85B" transform="rotate(30 50 88)"/>
+    <!-- Hoa hồng 1 (to, giữa) -->
+    <circle cx="65" cy="40" r="18" fill="#E8637C" opacity="0.15"/>
+    <path d="M65,28 C65,22 70,18 75,22 C80,18 84,22 84,28 C84,36 75,44 65,50 C55,44 46,36 46,28 C46,22 50,18 55,22 C60,18 65,22 65,28Z" fill="#E8637C"/>
+    <path d="M65,32 C65,27 69,24 73,27 C77,24 80,27 80,32 C80,38 73,44 65,48 C57,44 50,38 50,32 C50,27 53,24 57,27 C61,24 65,27 65,32Z" fill="#F4A7B9"/>
+    <circle cx="65" cy="36" r="5" fill="#FFB3C6"/>
+    <!-- Hoa hồng 2 (nhỏ trái) -->
+    <circle cx="42" cy="62" r="12" fill="#FFB3C6" opacity="0.15"/>
+    <path d="M42,52 C42,47 46,44 50,47 C54,44 57,47 57,52 C57,58 50,64 42,68 C34,64 27,58 27,52 C27,47 30,44 34,47 C38,44 42,47 42,52Z" fill="#F4A7B9"/>
+    <circle cx="42" cy="56" r="4" fill="#FFD6E7"/>
+    <!-- Hoa hồng 3 (nhỏ phải) -->
+    <path d="M88,75 C88,71 91,68 95,71 C99,68 102,71 102,75 C102,80 95,85 88,88 C81,85 74,80 74,75 C74,71 77,68 81,71 C85,68 88,71 88,75Z" fill="#FFAA80"/>
+    <circle cx="88" cy="78" r="3.5" fill="#FFD4A0"/>
+    <!-- Nơ dây buộc -->
+    <path d="M55,145 C55,140 60,137 65,140 C70,137 75,140 75,145" stroke="#E8637C" stroke-width="3" stroke-linecap="round"/>
+    <path d="M55,145 C48,150 44,156 48,160" stroke="#E8637C" stroke-width="2" stroke-linecap="round"/>
+    <path d="M75,145 C82,150 86,156 82,160" stroke="#E8637C" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+
+  <!-- ❸ Chim bồ câu + tim – góc trên trái -->
+  <svg class="bg-deco float-med" style="top:15px;left:15px;width:150px;opacity:0.24;" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Chim 1 -->
+    <path d="M35,55 C22,44 8,46 5,55 C3,64 14,68 26,63 C32,61 37,57 35,55Z" fill="#F4A7B9"/>
+    <path d="M35,55 C41,48 50,44 60,46 C52,51 46,58 40,61Z" fill="#E8637C"/>
+    <circle cx="10" cy="53" r="4" fill="#E8637C"/>
+    <path d="M7,51 L2,46" stroke="#C94B6B" stroke-width="2" stroke-linecap="round"/>
+    <path d="M28,61 C25,68 20,75 16,78" stroke="#F4A7B9" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Chim 2 -->
+    <path d="M115,30 C102,19 88,21 85,30 C83,39 94,43 106,38 C112,36 117,32 115,30Z" fill="#FFD6E7"/>
+    <path d="M115,30 C121,23 130,19 140,21 C132,26 126,33 120,36Z" fill="#F4A7B9"/>
+    <circle cx="90" cy="28" r="4" fill="#E8637C"/>
+    <path d="M87,26 L82,21" stroke="#C94B6B" stroke-width="2" stroke-linecap="round"/>
+    <path d="M108,36 C105,43 100,50 96,53" stroke="#FFD6E7" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Dây nối (sợi chỉ đỏ) -->
+    <path d="M40,58 C60,52 80,48 105,36" stroke="#E8637C" stroke-width="1.5" stroke-dasharray="4 3" stroke-linecap="round"/>
+    <!-- Tim trung tâm -->
+    <path d="M68,38 C68,33 72,30 76,33 C80,30 84,33 84,38 C84,44 76,50 76,50 C76,50 68,44 68,38Z" fill="#E8637C"/>
+    <!-- Tim nhỏ bay -->
+    <path d="M18,35 C18,33 20,31 22,33 C24,31 26,33 26,35 C26,37 22,40 22,40 C22,40 18,37 18,35Z" fill="#FFB3C6" opacity="0.7"/>
+    <path d="M128,55 C128,53 130,52 132,53 C134,52 136,53 136,55 C136,57 132,59 132,59 C132,59 128,57 128,55Z" fill="#F4A7B9" opacity="0.6"/>
+    <!-- Ngôi sao -->
+    <path d="M140,10 L141,14 L145,14 L142,17 L143,21 L140,18 L137,21 L138,17 L135,14 L139,14Z" fill="#FFD97D" opacity="0.8"/>
+    <path d="M10,90 L11,93 L14,93 L12,95 L13,98 L10,96 L7,98 L8,95 L6,93 L9,93Z" fill="#FFD97D" opacity="0.6"/>
+  </svg>
+
+  <!-- ❹ Vòng chữ nhật bo góc + hoa nhỏ – góc dưới trái -->
+  <svg class="bg-deco float" style="bottom:20px;left:20px;width:110px;opacity:0.22;" viewBox="0 0 110 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Phong thư tình -->
+    <rect x="5" y="30" width="100" height="75" rx="10" fill="#FFE0EC"/>
+    <rect x="5" y="30" width="100" height="75" rx="10" stroke="#E8637C" stroke-width="2.5"/>
+    <path d="M5,35 L55,68 L105,35" stroke="#E8637C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Tim trên phong thư -->
+    <path d="M42,85 C42,80 46,77 50,80 C54,77 58,80 58,85 C58,91 50,97 50,97 C50,97 42,91 42,85Z" fill="#E8637C" opacity="0.8"/>
+    <!-- Bướm nhỏ -->
+    <path d="M55,15 C55,15 46,6 42,11 C38,16 44,22 55,20Z" fill="#FFB3C6"/>
+    <path d="M55,15 C55,15 64,6 68,11 C72,16 66,22 55,20Z" fill="#F4A7B9"/>
+    <path d="M55,15 C55,15 46,24 42,19 C38,14 44,8 55,10Z" fill="#FFD6E7"/>
+    <path d="M55,15 C55,15 64,24 68,19 C72,14 66,8 55,10Z" fill="#FFE0EC"/>
+    <circle cx="55" cy="15" r="3" fill="#E8637C"/>
+    <!-- Chấm sao nhỏ -->
+    <circle cx="20" cy="120" r="3" fill="#FFD97D" opacity="0.7"/>
+    <circle cx="90" cy="15" r="2.5" fill="#FFD97D" opacity="0.6"/>
+    <circle cx="100" cy="115" r="2" fill="#F4A7B9" opacity="0.6"/>
+  </svg>
+
+  <!-- ❺ Hoa nhỏ rải rác giữa màn -->
+  <svg class="bg-deco float-med" style="top:42%;left:3%;width:50px;opacity:0.2;" viewBox="0 0 50 50" fill="none">
+    <circle cx="25" cy="25" r="6" fill="#FFB347"/>
+    <ellipse cx="25" cy="13" rx="5" ry="10" fill="#F4A7B9"/>
+    <ellipse cx="25" cy="37" rx="5" ry="10" fill="#F4A7B9"/>
+    <ellipse cx="13" cy="25" rx="10" ry="5" fill="#FFD6E7"/>
+    <ellipse cx="37" cy="25" rx="10" ry="5" fill="#FFD6E7"/>
+  </svg>
+  <svg class="bg-deco float-slow" style="top:25%;right:4%;width:40px;opacity:0.18;" viewBox="0 0 40 40" fill="none">
+    <path d="M20,3 L22,11 L30,11 L24,16 L26,24 L20,19 L14,24 L16,16 L10,11 L18,11Z" fill="#FFB347"/>
+  </svg>
 
   <div class="splash-content">
     <!-- Badge -->
@@ -850,6 +1013,18 @@ html, body {
 
 <!-- ══════════ GIỚI THIỆU ══════════ -->
 <div class="screen swirl-bg" id="screen-intro">
+  <!-- Deco hoa góc -->
+  <svg class="bg-deco float-slow" style="top:10px;right:10px;width:90px;opacity:0.18;" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="45" cy="45" r="10" fill="#E8637C"/>
+    <ellipse cx="45" cy="22" rx="7" ry="15" fill="#F4A7B9"/>
+    <ellipse cx="45" cy="68" rx="7" ry="15" fill="#F4A7B9"/>
+    <ellipse cx="22" cy="45" rx="15" ry="7" fill="#FFD6E7"/>
+    <ellipse cx="68" cy="45" rx="15" ry="7" fill="#FFD6E7"/>
+  </svg>
+  <svg class="bg-deco float" style="bottom:10px;left:10px;width:70px;opacity:0.15;" viewBox="0 0 70 70" fill="none">
+    <path d="M35,5 L38,17 L50,17 L41,24 L44,36 L35,29 L26,36 L29,24 L20,17 L32,17Z" fill="#FFB347"/>
+    <path d="M15,55 C15,52 18,50 21,52 C24,50 27,52 27,55 C27,58 21,62 21,62 C21,62 15,58 15,55Z" fill="#E8637C"/>
+  </svg>
   <div class="swirl-card">
     <div class="tag-badge">GIỚI THIỆU</div>
     <h2>Ngôn Ngữ Tình Yêu</h2>
@@ -865,6 +1040,17 @@ html, body {
 
 <!-- ══════════ LUẬT CHƠI ══════════ -->
 <div class="screen swirl-bg" id="screen-rules">
+  <!-- Deco tim + vòng tròn -->
+  <svg class="bg-deco float-med" style="top:8px;left:12px;width:80px;opacity:0.18;" viewBox="0 0 80 80" fill="none">
+    <path d="M40,60 C40,60 12,44 12,26 C12,16 20,10 30,16 C35,19 40,28 40,28 C40,28 45,19 50,16 C60,10 68,16 68,26 C68,44 40,60 40,60Z" fill="#E8637C"/>
+    <path d="M10,70 C10,68 12,66 15,67 C17,66 20,68 20,70 C20,72 15,75 15,75 C15,75 10,72 10,70Z" fill="#FFB3C6"/>
+    <path d="M62,15 C62,13 64,11 67,12 C70,11 72,13 72,15 C72,17 67,20 67,20 C67,20 62,17 62,15Z" fill="#F4A7B9"/>
+  </svg>
+  <svg class="bg-deco float-slow" style="bottom:8px;right:10px;width:75px;opacity:0.15;" viewBox="0 0 75 75" fill="none">
+    <circle cx="37" cy="37" r="32" stroke="#E8637C" stroke-width="2" stroke-dasharray="5 4"/>
+    <circle cx="37" cy="37" r="20" stroke="#F4A7B9" stroke-width="1.5"/>
+    <circle cx="37" cy="37" r="8" fill="#FFD6E7"/>
+  </svg>
   <div class="swirl-card">
     <div class="tag-badge">LUẬT CHƠI</div>
     <h2>Cách chơi</h2>
@@ -894,7 +1080,14 @@ html, body {
 </div>
 
 <!-- ══════════ CHỌN CẤP ĐỘ ══════════ -->
-<div class="screen" id="screen-level" style="background:#FFF8FA; overflow-y:auto; justify-content:flex-start;">
+<div class="screen" id="screen-level" style="background:linear-gradient(160deg,#FFF0F5 0%,#FFF8F0 100%); overflow-y:auto; justify-content:flex-start;">
+  <!-- Deco level screen -->
+  <svg class="bg-deco float" style="top:10px;right:16px;width:80px;opacity:0.14;" viewBox="0 0 80 80" fill="none">
+    <path d="M40,68 C40,68 10,50 10,28 C10,16 19,10 30,16 C36,19 40,28 40,28 C40,28 44,19 50,16 C61,10 70,16 70,28 C70,50 40,68 40,68Z" fill="#E8637C"/>
+  </svg>
+  <svg class="bg-deco float-slow" style="bottom:20px;left:10px;width:60px;opacity:0.12;" viewBox="0 0 60 60" fill="none">
+    <path d="M30,4 L33,14 L44,14 L35,21 L38,31 L30,24 L22,31 L25,21 L16,14 L27,14Z" fill="#FFB347"/>
+  </svg>
   <div class="level-header">
     <h2>Anh &amp; em đang ở đâu?</h2>
     <p>Chọn cấp độ để nhận câu hỏi phù hợp</p>
@@ -918,6 +1111,24 @@ html, body {
 
 <!-- ══════════ KẾT THÚC ══════════ -->
 <div class="screen swirl-bg" id="screen-end">
+  <!-- Deco end: tim bay + hoa -->
+  <svg class="bg-deco float" style="top:10px;left:50%;transform:translateX(-50%);width:200px;opacity:0.22;" viewBox="0 0 200 80" fill="none">
+    <path d="M30,40 C30,32 36,27 42,31 C48,27 54,32 54,40 C54,50 42,60 42,60 C42,60 30,50 30,40Z" fill="#E8637C"/>
+    <path d="M80,25 C80,19 85,15 90,18 C95,15 100,19 100,25 C100,33 90,41 90,41 C90,41 80,33 80,25Z" fill="#F4A7B9"/>
+    <path d="M130,35 C130,29 134,26 138,28 C142,26 146,29 146,35 C146,42 138,48 138,48 C138,48 130,42 130,35Z" fill="#FFB3C6"/>
+    <path d="M168,20 C168,17 170,15 173,17 C176,15 178,17 178,20 C178,23 173,27 173,27 C173,27 168,23 168,20Z" fill="#FFD6E7"/>
+  </svg>
+  <svg class="bg-deco float-slow" style="bottom:20px;right:20px;width:90px;opacity:0.2;" viewBox="0 0 90 90" fill="none">
+    <circle cx="45" cy="45" r="9" fill="#FFB347"/>
+    <ellipse cx="45" cy="22" rx="7" ry="14" fill="#F4A7B9"/>
+    <ellipse cx="45" cy="68" rx="7" ry="14" fill="#F4A7B9"/>
+    <ellipse cx="22" cy="45" rx="14" ry="7" fill="#FFD6E7"/>
+    <ellipse cx="68" cy="45" rx="14" ry="7" fill="#FFD6E7"/>
+  </svg>
+  <svg class="bg-deco float-med" style="bottom:20px;left:20px;width:70px;opacity:0.18;" viewBox="0 0 70 70" fill="none">
+    <path d="M35,5 L38,15 L48,15 L40,22 L43,32 L35,26 L27,32 L30,22 L22,15 L32,15Z" fill="#FFD97D"/>
+    <circle cx="35" cy="35" r="10" fill="#FFB347" opacity="0.4"/>
+  </svg>
   <div class="end-inner swirl-card">
     <div style="font-size:56px; margin-bottom:12px">💕</div>
     <h2>Cảm ơn hai người!</h2>
