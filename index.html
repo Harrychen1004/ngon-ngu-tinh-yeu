@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ngôn Ngữ Tình Yêu by Harry Chen</title>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Baloo+2:wght@700;800&family=Playfair+Display:ital,wght@1,700;1,800;1,900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -137,7 +137,7 @@ html, body {
   z-index: 1;
   width: 100%;
   max-width: 640px;
-  padding: 56px 32px 52px;
+  padding: 80px 32px 52px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,17 +148,22 @@ html, body {
 @media (min-width: 900px) {
   .splash-content {
     max-width: 780px;
-    padding: 64px 60px 60px;
+    padding: 88px 60px 60px;
   }
 }
 
-/* Badge */
+/* Badge — pinned top center */
 .splash-badge {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.5);
-  border: 1.5px solid rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.55);
+  border: 1.5px solid rgba(255,255,255,0.85);
   border-radius: 50px;
   padding: 9px 22px;
   font-family: 'Be Vietnam Pro', sans-serif;
@@ -166,7 +171,7 @@ html, body {
   font-weight: 700;
   letter-spacing: 2.5px;
   color: #B04060;
-  margin-bottom: 30px;
+  white-space: nowrap;
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 16px rgba(200,80,100,0.1);
 }
@@ -183,16 +188,16 @@ html, body {
   50%      { transform: scale(1.35); opacity:.75; }
 }
 
-/* Tiêu đề splash — Fira Sans Black, căn giữa */
+/* Tiêu đề splash — Playfair Display Italic, lãng mạn */
 .splash-title {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: clamp(44px, 8vw, 80px);
-  font-weight: 900;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(48px, 9vw, 88px);
+  font-weight: 800;
   font-style: italic;
   line-height: 1.1;
   color: #B83058;
   margin-bottom: 24px;
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   text-shadow: 0 4px 28px rgba(184,48,88,0.16), 0 1px 0 rgba(255,255,255,0.6);
   text-align: center;
   width: 100%;
@@ -219,10 +224,10 @@ html, body {
 /* Stats */
 .splash-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 14px;
   width: 100%;
-  max-width: 480px;
+  max-width: 340px;
   margin: 0 auto 32px;
 }
 .stat-box {
@@ -294,64 +299,129 @@ html, body {
 .splash-btn-sec:hover { background: rgba(255,255,255,0.7); }
 .splash-btn-sec:active { transform: scale(0.97); }
 
-/* ── Level selection ── */
-#screen-level {
-  background: #FFF8FA;
+/* ── Date screen ── */
+#screen-date {
+  background: linear-gradient(160deg,#FFF0F5 0%,#FFF8F0 100%);
   overflow-y: auto;
+  justify-content: center;
 }
-.level-header {
+.date-content {
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 28px 40px;
   text-align: center;
-  padding: 40px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.level-header h2 {
+.date-content h2 {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 800;
   font-style: italic;
   font-size: 34px;
   color: #C94B6B;
-  margin-bottom: 8px;
+  margin: 16px 0 12px;
+  line-height: 1.15;
 }
-.level-header p { font-size: 14px; color: #9E7080; }
-
-.level-list {
-  width: 100%;
-  padding: 0 20px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.date-content > p {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #7A3545;
+  font-size: 14px;
+  line-height: 1.75;
+  margin-bottom: 28px;
+  max-width: 340px;
 }
-
-.level-btn {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 20px;
-  border-radius: 16px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(200,80,100,0.08);
-  transition: all 0.18s;
+.date-input-wrap {
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(232,99,124,0.25);
+  border-radius: 20px;
+  padding: 22px 24px 18px;
+  margin-bottom: 16px;
   width: 100%;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(200,80,100,0.07);
   text-align: left;
 }
-.level-btn:active { transform: scale(0.97); }
-
-.level-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
+.date-label {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #A83050;
+  display: block;
+  margin-bottom: 12px;
+}
+.date-field {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(232,99,124,0.25);
+  background: #fff;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 16px;
+  color: #3D1A24;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.date-field:focus { border-color: #E8637C; }
+.date-error {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 12px;
+  color: #E8637C;
+  margin-top: 8px;
+  display: none;
+}
+.date-error.show { display: block; }
+.date-skip {
+  font-size: 13px;
+  color: #B07085;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  margin-top: 6px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  padding: 8px;
+  opacity: 0.75;
 }
 
-.level-info { flex: 1; }
-.level-name { font-weight: 600; font-size: 15px; color: #3D1A24; }
-.level-desc { font-size: 12px; color: #9E7080; margin-top: 2px; }
-.level-count { font-size: 12px; font-weight: 600; }
+/* ── Days display (end screen) ── */
+.days-display {
+  background: rgba(255,255,255,0.65);
+  border: 1.5px solid rgba(255,255,255,0.9);
+  border-radius: 20px;
+  padding: 22px 24px 18px;
+  margin: 16px 0;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(200,80,100,0.08);
+}
+.days-count {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 64px;
+  font-weight: 900;
+  font-style: italic;
+  color: #C94B6B;
+  line-height: 1;
+  display: block;
+}
+.days-label {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #9A5065;
+  display: block;
+  margin-top: 6px;
+}
+.days-message {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  color: #7A3545;
+  line-height: 1.75;
+  margin-top: 14px;
+  font-style: italic;
+}
 
 /* ── Game screen ── */
 #screen-game {
@@ -966,13 +1036,13 @@ html, body {
     <path d="M20,3 L22,11 L30,11 L24,16 L26,24 L20,19 L14,24 L16,16 L10,11 L18,11Z" fill="#FFB347"/>
   </svg>
 
-  <div class="splash-content">
-    <!-- Badge -->
-    <div class="splash-badge">
-      <span class="splash-badge-dot"></span>
-      TRÒ CHƠI TƯƠNG TÁC
-    </div>
+  <!-- Badge — pinned top center -->
+  <div class="splash-badge">
+    <span class="splash-badge-dot"></span>
+    TRÒ CHƠI TƯƠNG TÁC
+  </div>
 
+  <div class="splash-content">
     <!-- Tiêu đề -->
     <div class="splash-title">Ngôn Ngữ<br>Tình Yêu</div>
 
@@ -989,15 +1059,11 @@ html, body {
 
     <div class="splash-divider"></div>
 
-    <!-- Stats 3 ô -->
+    <!-- Stats 2 ô -->
     <div class="splash-stats">
       <div class="stat-box">
         <span class="stat-num">100</span>
         <span class="stat-label">Câu hỏi</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num">7</span>
-        <span class="stat-label">Giai đoạn</span>
       </div>
       <div class="stat-box">
         <span class="stat-num">10</span>
@@ -1056,7 +1122,7 @@ html, body {
   <div class="swirl-card">
     <div class="tag-badge">LUẬT CHƠI</div>
     <h2>Cách chơi</h2>
-    <p><strong>① Chọn cấp độ</strong><br>Chọn cấp độ phù hợp với mối quan hệ của hai bạn. Câu hỏi sẽ được lọc tương ứng.</p>
+    <p><strong>① Nhập ngày gặp nhau</strong><br>Điền ngày hai người lần đầu gặp nhau — cuối trò chơi sẽ có lời chúc riêng cho hai bạn.</p>
     <p><strong>② Rút thẻ ngẫu nhiên</strong><br>Mỗi lần chơi, thứ tự câu hỏi sẽ được xáo trộn mới — không bao giờ lặp lại!</p>
     <p><strong>③ Trả lời thành thật</strong><br>Người rút thẻ trả lời trước. Người còn lại lắng nghe, không phán xét.</p>
     <p><strong>④ Đổi lượt</strong><br>Sau mỗi câu, đổi người rút thẻ tiếp theo. Hoặc cùng nhau trả lời một câu!</p>
@@ -1081,20 +1147,28 @@ html, body {
   </div>
 </div>
 
-<!-- ══════════ CHỌN CẤP ĐỘ ══════════ -->
-<div class="screen" id="screen-level" style="background:linear-gradient(160deg,#FFF0F5 0%,#FFF8F0 100%); overflow-y:auto; justify-content:flex-start;">
-  <!-- Deco level screen -->
+<!-- ══════════ NGÀY GẶP NHAU ══════════ -->
+<div class="screen" id="screen-date">
   <svg class="bg-deco float" style="top:10px;right:16px;width:80px;opacity:0.14;" viewBox="0 0 80 80" fill="none">
     <path d="M40,68 C40,68 10,50 10,28 C10,16 19,10 30,16 C36,19 40,28 40,28 C40,28 44,19 50,16 C61,10 70,16 70,28 C70,50 40,68 40,68Z" fill="#E8637C"/>
   </svg>
   <svg class="bg-deco float-slow" style="bottom:20px;left:10px;width:60px;opacity:0.12;" viewBox="0 0 60 60" fill="none">
     <path d="M30,4 L33,14 L44,14 L35,21 L38,31 L30,24 L22,31 L25,21 L16,14 L27,14Z" fill="#FFB347"/>
   </svg>
-  <div class="level-header">
-    <h2>Anh &amp; em đang ở đâu?</h2>
-    <p>Chọn cấp độ để nhận câu hỏi phù hợp</p>
+  <div class="date-content">
+    <div class="tag-badge">MỘT CHÚT VỀ HAI NGƯỜI</div>
+    <h2>Ngày đầu tiên<br>gặp nhau 💕</h2>
+    <p>Điền ngày hai người lần đầu gặp nhau — sau khi chơi xong 10 câu hỏi, tụi mình sẽ tính xem hai bạn đã bên nhau bao nhiêu ngày và gửi một lời chúc riêng nhé!</p>
+    <div class="date-input-wrap">
+      <label class="date-label">📅 Ngày đầu tiên gặp nhau là...</label>
+      <input class="date-field" id="meet-date" type="date" />
+      <div class="date-error" id="err-date">Hãy chọn ngày hai người gặp nhau nhé 🌸</div>
+    </div>
+    <button class="btn btn-primary" onclick="confirmDateAndStart()" style="width:100%; max-width:340px">Bắt đầu chơi 💕</button>
+    <button class="date-skip" onclick="skipDateAndStart()">Bỏ qua, chơi luôn →</button>
+    <br>
+    <button class="btn btn-outline" onclick="showScreen('screen-rules')" style="margin-top:4px; font-size:13px">← Quay lại</button>
   </div>
-  <div class="level-list" id="level-list"></div>
 </div>
 
 <!-- ══════════ GAME ══════════ -->
@@ -1135,10 +1209,15 @@ html, body {
     <div style="font-size:56px; margin-bottom:12px">💕</div>
     <h2>Cảm ơn hai người!</h2>
     <p>Hy vọng những câu hỏi này đã giúp anh và em hiểu nhau hơn một chút — và yêu nhau nhiều hơn một chút.</p>
+    <div id="days-display" class="days-display" style="display:none;">
+      <span class="days-count" id="days-count">0</span>
+      <span class="days-label">ngày bên nhau 💕</span>
+      <p class="days-message" id="days-message"></p>
+    </div>
     <p style="font-style:italic; opacity:0.7">✦ Tình yêu không phải điểm đến — đó là hành trình mỗi ngày ✦</p>
     <button class="btn btn-primary" onclick="restartGame()" style="min-width:200px">Chơi lại 🔀</button>
     <br>
-    <button class="btn btn-outline" onclick="showScreen('screen-level')" style="min-width:200px; margin-top:10px; font-size:13px">Đổi cấp độ</button>
+    <button class="btn btn-outline" onclick="showScreen('screen-date')" style="min-width:200px; margin-top:10px; font-size:13px">Đổi ngày 📅</button>
     <br>
     <button class="btn btn-outline" onclick="showScreen('screen-splash')" style="min-width:200px; margin-top:8px; font-size:13px">Trang chủ</button>
   </div>
@@ -1155,19 +1234,6 @@ const THEMES = {
   4: { name:'Cam',      border:'#FFB347', highlight:'#E07820', bg:'#FFF8F0', text:'#C06000' },
   5: { name:'Vàng',     border:'#FFE066', highlight:'#C8A010', bg:'#FFFDF0', text:'#9E7D00' },
 };
-
-// ════════════════════════════════════════
-// LEVELS
-// ════════════════════════════════════════
-const LEVELS = [
-  { id:1, emoji:'☕', name:'Buổi hẹn hò',       desc:'Lần đầu gặp gỡ',              color:'#F4A7B9', bg:'#FFF0F3' },
-  { id:2, emoji:'🌸', name:'Đang tìm hiểu',      desc:'Đang khám phá nhau',          color:'#C8A8E9', bg:'#F5F0FF' },
-  { id:3, emoji:'💌', name:'Yêu dưới 1 năm',     desc:'Mới bắt đầu yêu',             color:'#9DCE9D', bg:'#F0FFF0' },
-  { id:4, emoji:'💑', name:'Yêu trên 1 năm',     desc:'Đã hiểu nhau nhiều hơn',      color:'#FFB347', bg:'#FFF8F0' },
-  { id:5, emoji:'💍', name:'Mới kết hôn',        desc:'Vừa bước vào cuộc sống mới',  color:'#F4A7B9', bg:'#FFF0F3' },
-  { id:6, emoji:'🏡', name:'Kết hôn trên 1 năm', desc:'Đã qua những thăng trầm đầu', color:'#C8A8E9', bg:'#F5F0FF' },
-  { id:7, emoji:'🌳', name:'Kết hôn trên 5 năm', desc:'Đồng hành lâu dài',           color:'#9DCE9D', bg:'#F0FFF0' },
-];
 
 // ════════════════════════════════════════
 // SVG ILLUSTRATIONS
@@ -1386,31 +1452,60 @@ const QUESTIONS = [
 // ════════════════════════════════════════
 // GAME STATE
 // ════════════════════════════════════════
-let selectedLevel = 1;
 let currentCards = [];
 let currentIndex = 0;
+let firstMeetDate = null;
 
 // ════════════════════════════════════════
-// BUILD LEVEL LIST
+// DATE LOGIC
 // ════════════════════════════════════════
-function buildLevelList() {
-  const container = document.getElementById('level-list');
-  container.innerHTML = '';
-  LEVELS.forEach(lv => {
-    const pool = QUESTIONS.filter(q => q.level <= lv.id).length;
-    const btn = document.createElement('button');
-    btn.className = 'level-btn';
-    btn.innerHTML = `
-      <div class="level-icon" style="background:${lv.bg}">${lv.emoji}</div>
-      <div class="level-info">
-        <div class="level-name">${lv.name}</div>
-        <div class="level-desc">${lv.desc} · ${pool} câu khả dụng</div>
-      </div>
-      <div class="level-count" style="color:${lv.color}">7 câu</div>
-    `;
-    btn.onclick = () => startGame(lv.id);
-    container.appendChild(btn);
-  });
+function confirmDateAndStart() {
+  const val = document.getElementById('meet-date').value;
+  if (!val) {
+    document.getElementById('err-date').classList.add('show');
+    return;
+  }
+  document.getElementById('err-date').classList.remove('show');
+  firstMeetDate = new Date(val + 'T00:00:00');
+  startGame();
+}
+
+function skipDateAndStart() {
+  firstMeetDate = null;
+  startGame();
+}
+
+function calcDaysTogether() {
+  if (!firstMeetDate) return null;
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const diff = Math.floor((today - firstMeetDate) / (1000 * 60 * 60 * 24));
+  return diff >= 0 ? diff : null;
+}
+
+function getDaysMessage(days) {
+  if (days === 0) return 'Ngay hôm nay! 🌟 — Đây là ngày đầu tiên của một hành trình tuyệt vời. Chúc hai người luôn giữ được khoảnh khắc đặc biệt này mãi mãi!';
+  if (days <= 7) return 'Tình yêu vừa chớm nở 🌱 — mọi khoảnh khắc đều là lần đầu tiên. Hãy trân trọng từng giây phút bên nhau nhé!';
+  if (days <= 30) return 'Đang trong những ngày ngọt ngào nhất 🍯 — tình yêu đang lên như những tia nắng buổi sáng. Cứ tự nhiên mà yêu thôi!';
+  if (days <= 99) return 'Hơn một tháng rồi đó 🌸 — tình yêu đang dần trở thành thói quen đẹp nhất trong ngày của hai người!';
+  if (days <= 365) return 'Gần một năm bên nhau 💫 — hai người đã cùng nhau tạo ra bao nhiêu kỷ niệm đẹp rồi đó. Chúc tiếp tục viết thêm nhiều trang nữa nhé!';
+  if (days <= 730) return 'Hơn một năm rồi! 🎉 — tình yêu của hai người đã trải qua đủ bốn mùa và vẫn tiếp tục đẹp thêm mỗi ngày!';
+  if (days <= 1825) return 'Hơn hai năm bên nhau 💑 — những gì hai người đang có, nhiều người chỉ dám mơ. Chúc hai người mãi giữ được điều này!';
+  if (days <= 3650) return 'Hơn năm năm rồi! 🌳 — tình yêu đã trở thành nền tảng vững chắc của cuộc sống. Hai người thật sự đặc biệt!';
+  return 'Hơn mười năm! 👑 — đây là tình yêu bền vững đích thực. Xin cảm ơn hai người đã cho thấy tình yêu đẹp đến nhường nào!';
+}
+
+function showEndScreen() {
+  const days = calcDaysTogether();
+  const display = document.getElementById('days-display');
+  if (days !== null) {
+    document.getElementById('days-count').textContent = days.toLocaleString('vi-VN');
+    document.getElementById('days-message').textContent = getDaysMessage(days);
+    display.style.display = 'block';
+  } else {
+    display.style.display = 'none';
+  }
+  showScreen('screen-end');
 }
 
 // ════════════════════════════════════════
@@ -1426,23 +1521,18 @@ function shuffle(arr) {
   return arr;
 }
 
-function pickRandom7(level) {
-  const all   = QUESTIONS.filter(q => q.level <= level);
-  const orig  = shuffle(all.filter(q => q.orig));   // câu gốc (41 câu)
-  const bonus = shuffle(all.filter(q => !q.orig));  // câu bổ sung
-
-  // 90% = 9 câu gốc, 10% = 1 câu bonus (fallback nếu không đủ)
-  const origPick  = orig.slice(0,  Math.min(9, orig.length));
+function pickRandom10() {
+  const orig  = shuffle(QUESTIONS.filter(q => q.orig));
+  const bonus = shuffle(QUESTIONS.filter(q => !q.orig));
+  const origPick  = orig.slice(0, Math.min(9, orig.length));
   const bonusPick = bonus.slice(0, Math.min(CARDS_PER_ROUND - origPick.length, bonus.length));
-  const result    = shuffle([...origPick, ...bonusPick]);
-  return result.slice(0, CARDS_PER_ROUND);
+  return shuffle([...origPick, ...bonusPick]).slice(0, CARDS_PER_ROUND);
 }
 
-function startGame(level) {
-  selectedLevel = level;
-  currentCards = pickRandom7(level);
+function startGame() {
+  currentCards = pickRandom10();
   currentIndex = 0;
-  showSparkle(level);
+  showSparkle();
 }
 
 function renderCard(direction) {
@@ -1452,7 +1542,7 @@ function renderCard(direction) {
   const header = document.getElementById('game-header');
 
   if (currentIndex >= currentCards.length) {
-    showScreen('screen-end');
+    showEndScreen();
     return;
   }
 
@@ -1482,7 +1572,7 @@ function renderCard(direction) {
 
   card.innerHTML = `
     <div class="q-card-inner">
-      <div class="card-number" style="color:${t.text}">${LEVELS[selectedLevel-1].emoji} ${LEVELS[selectedLevel-1].name.toUpperCase()}</div>
+      <div class="card-number" style="color:${t.text}">💕 NGÔN NGỮ TÌNH YÊU</div>
       <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;">
         ${q.pre ? `<div class="card-question-text" style="color:${t.text}">${q.pre}</div>` : ''}
         <div class="card-highlight" style="color:${t.highlight}">${highlightLines.join('<br>')}</div>
@@ -1503,7 +1593,7 @@ function nextCard() {
 }
 
 function restartGame() {
-  currentCards = pickRandom7(selectedLevel);
+  currentCards = pickRandom10();
   currentIndex = 0;
   showScreen('screen-game');
   renderCard();
@@ -1511,7 +1601,7 @@ function restartGame() {
 
 function confirmEnd() {
   if (confirm('Kết thúc trò chơi?')) {
-    showScreen('screen-end');
+    showEndScreen();
   }
 }
 
@@ -1612,7 +1702,7 @@ function closeWelcome() {
   document.getElementById('welcome-overlay').classList.add('hidden');
   if (pendingLevelScreen) {
     pendingLevelScreen = false;
-    showScreen('screen-level');
+    showScreen('screen-date');
   }
 }
 
@@ -1715,14 +1805,13 @@ const SPARKLE_MESSAGES = [
 
 const SPARKLE_PARTICLES = ['✨','💕','🌸','⭐','💫','🌷','💖','✦'];
 
-function showSparkle(levelId) {
+function showSparkle() {
   const overlay = document.getElementById('sparkle-overlay');
   const box = document.getElementById('sparkle-box');
-  const lv = LEVELS.find(l => l.id === levelId);
   const msg = SPARKLE_MESSAGES[Math.floor(Math.random() * SPARKLE_MESSAGES.length)];
 
-  document.getElementById('sparkle-title').textContent = `${lv.emoji} ${msg.title}`;
-  document.getElementById('sparkle-msg').textContent = `Cấp độ: ${lv.name}\n\n${msg.msg}`;
+  document.getElementById('sparkle-title').textContent = `💕 ${msg.title}`;
+  document.getElementById('sparkle-msg').textContent = msg.msg;
 
   // clear old particles
   box.querySelectorAll('.sparkle-particle').forEach(p => p.remove());
@@ -1753,7 +1842,7 @@ function closeSparkle() {
 // ════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════
-buildLevelList();
+document.getElementById('meet-date').max = new Date().toISOString().split('T')[0];
 </script>
 </body>
 </html>
