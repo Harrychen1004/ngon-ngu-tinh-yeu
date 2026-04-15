@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ngôn Ngữ Tình Yêu by Harry Chen</title>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600;1,700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -414,46 +414,50 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 28px 22px 20px;
+  justify-content: center;
+  padding: 28px 24px 20px;
+  gap: 6px;
   overflow: hidden;
 }
 
 .card-number {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.5;
-  margin-bottom: 16px;
-  align-self: flex-start;
+  opacity: 0.35;
+  margin-bottom: 4px;
+  align-self: center;
 }
 
 .card-question-text {
-  font-size: 14px;
-  color: #555;
-  text-align: center;
-  line-height: 1.65;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 16px;
   font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
   flex: 0 0 auto;
 }
 
 .card-highlight {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Baloo 2', cursive;
   font-weight: 800;
-  font-style: italic;
-  font-size: 42px;
+  font-style: normal;
+  font-size: clamp(34px, 9vw, 52px);
   text-align: center;
-  line-height: 1.1;
-  margin: 12px 0;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 8px 0;
   flex: 0 0 auto;
 }
 
 .card-suffix {
-  font-size: 14px;
-  color: #555;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   text-align: center;
-  line-height: 1.65;
+  line-height: 1.6;
   flex: 0 0 auto;
 }
 
@@ -728,9 +732,9 @@ html, body {
   .level-list { max-width: 560px; width: 100%; padding: 0 0 52px; }
   .level-btn { padding: 18px 24px; }
   .level-name { font-size: 16px; }
-  .q-card { max-width: 460px; min-height: 520px; }
-  .card-highlight { font-size: 50px; }
-  .card-question-text, .card-suffix { font-size: 15px; }
+  .q-card { max-width: 420px; min-height: 520px; }
+  .card-highlight { font-size: 56px; }
+  .card-question-text, .card-suffix { font-size: 17px; }
   .game-header { max-width: 560px; padding: 20px 28px 10px; }
   .progress-bar-wrap { max-width: 520px; }
   .card-container { max-width: 560px; }
@@ -1148,10 +1152,10 @@ html, body {
 // ════════════════════════════════════════
 const THEMES = {
   1: { name:'Hồng',     border:'#F4A7B9', highlight:'#E8637C', bg:'#FFF0F3', text:'#C94B6B' },
-  2: { name:'Tím',      border:'#C8A8E9', highlight:'#8B5BB8', bg:'#F5F0FF', text:'#7D4FB5' },
-  3: { name:'Xanh lá',  border:'#9DCE9D', highlight:'#4A8C4A', bg:'#F0FFF0', text:'#3A7A3A' },
-  4: { name:'Cam',      border:'#FFB347', highlight:'#D46B00', bg:'#FFF8F0', text:'#C06000' },
-  5: { name:'Vàng',     border:'#FFE066', highlight:'#B8920A', bg:'#FFFDF0', text:'#9E7D00' },
+  2: { name:'Tím',      border:'#C8A8E9', highlight:'#9B59B6', bg:'#F5F0FF', text:'#7D4FB5' },
+  3: { name:'Xanh lá',  border:'#9DCE9D', highlight:'#E8923A', bg:'#F0FFF0', text:'#3A7A3A' },
+  4: { name:'Cam',      border:'#FFB347', highlight:'#E07820', bg:'#FFF8F0', text:'#C06000' },
+  5: { name:'Vàng',     border:'#FFE066', highlight:'#C8A010', bg:'#FFFDF0', text:'#9E7D00' },
 };
 
 // ════════════════════════════════════════
@@ -1482,9 +1486,9 @@ function renderCard(direction) {
     <div class="q-card-inner">
       <div class="card-number" style="color:${t.text}">${LEVELS[selectedLevel-1].emoji} ${LEVELS[selectedLevel-1].name.toUpperCase()}</div>
       <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;">
-        ${q.pre ? `<div class="card-question-text" style="color:#666">${q.pre}</div>` : ''}
+        ${q.pre ? `<div class="card-question-text" style="color:${t.text}">${q.pre}</div>` : ''}
         <div class="card-highlight" style="color:${t.highlight}">${highlightLines.join('<br>')}</div>
-        ${q.suf ? `<div class="card-suffix" style="color:#666">${q.suf}</div>` : ''}
+        ${q.suf ? `<div class="card-suffix" style="color:${t.text}">${q.suf}</div>` : ''}
       </div>
       <div class="card-illustration">${svgStr}</div>
       <div class="card-tap-hint" style="color:${t.text}">Tap để tiếp tục →</div>
